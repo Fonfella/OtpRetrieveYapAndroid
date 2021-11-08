@@ -1,25 +1,24 @@
 package main.Runners;
 
+import io.appium.java_client.android.AndroidDriver;
 import io.testproject.java.classes.DriverSettings;
 import io.testproject.java.enums.DriverType;
 import io.testproject.java.sdk.v2.Runner;
-import io.testproject.java.sdk.v2.drivers.WebDriver;
-import main.Addon.ClearInput;
+import main.Addon.OtpRetrieveYapFonfella;
 
 public class ActionRunner {
 
 
-    private final static String devToken = "U--LKi5tve35kNidu4uRp5IzAWrhL7PNVp3jEn4Y55U1";
+    private final static String devToken = "nLX1e4exBULyHTBJeXZRJoBqQ7LCv8qsY2d-2QHK36Y1";
 
     public static void main(String[] args) throws Exception{
-        DriverSettings driverSettings = new DriverSettings(DriverType.Chrome);
+        DriverSettings driverSettings = new DriverSettings(DriverType.Appium_Android);
 
         try(Runner runner = new Runner(devToken, driverSettings)){
 
-            ClearInput clickMenuLinks = new ClearInput();
+            OtpRetrieveYapFonfella clickMenuLinks = new OtpRetrieveYapFonfella();
 
-            WebDriver driver = runner.getDriver(clickMenuLinks);
-            driver.navigate().to("http://eaapp.somee.com/");
+            AndroidDriver driver = runner.getDriver(clickMenuLinks);
 
             //Click all the menu items of the menu
             runner.run(clickMenuLinks);

@@ -53,6 +53,11 @@
             <scope>system</scope>
             <systemPath>C:/CartellaLavoro/TestProjectSDK/TestProjectSDK.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp</groupId>
+            <artifactId>okhttp-urlconnection</artifactId>
+            <version>2.5.0</version>
+        </dependency>
     </dependencies>
 
 
