@@ -4,7 +4,9 @@ import io.appium.java_client.android.AndroidDriver;
 import io.testproject.java.classes.DriverSettings;
 import io.testproject.java.enums.DriverType;
 import io.testproject.java.sdk.v2.Runner;
-import main.Addon.OtpRetrieveYapFonfella;
+
+import main.Addon.CheckTimeLine;
+
 
 public class ActionRunner {
 
@@ -16,12 +18,12 @@ public class ActionRunner {
 
         try(Runner runner = new Runner(devToken, driverSettings)){
 
-            OtpRetrieveYapFonfella clickMenuLinks = new OtpRetrieveYapFonfella();
+            CheckTimeLine ctl = new CheckTimeLine();
 
-            AndroidDriver driver = runner.getDriver(clickMenuLinks);
+            AndroidDriver driver = runner.getDriver(ctl);
 
             //Click all the menu items of the menu
-            runner.run(clickMenuLinks);
+            runner.run(ctl);
 
         }
     }
