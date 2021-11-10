@@ -65,7 +65,9 @@ public class CheckTimeLine implements AndroidAction {
                 String v = "//*[contains(@text,sost)]";
                 String ch = "\'";
                 String toCheck = ch + el1text + ch;
-                val = v.replaceAll("sost", toCheck);
+                //val = v.replaceAll("sost", toCheck);
+
+                 val = "//android.widget.TextView[@text = '"+message+"']";
             }
         } catch (Exception e) {
             driver.findElementByXPath("//*[@resource-id='it.nexi.yap.stg:id/button_continue']").click();
@@ -105,6 +107,7 @@ public class CheckTimeLine implements AndroidAction {
         do {
             try {
                 if (driver.findElementByXPath(val).isDisplayed()) {
+                    Thread.sleep(1000);
                     driver.findElementByXPath(val).click();
                     break;
                 }
@@ -122,7 +125,7 @@ public class CheckTimeLine implements AndroidAction {
 
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         MobileElement el2 = (MobileElement) driver.findElementById("it.nexi.yap.stg:id/text_title");
-        user = "Diego Lettieri";
+  //      user = "Diego Lettieri";
         if (user.equals("Null") == false) {
             System.out.println(det + "Check TimeLine User");
             System.out.println(det + "Expected values: [" + user + "]");
@@ -134,7 +137,7 @@ public class CheckTimeLine implements AndroidAction {
                 driver.close();
             }
         }
-        amount = "+1,00€";
+    //    amount = "-1,00€";
         MobileElement el3 = (MobileElement) driver.findElementById("it.nexi.yap.stg:id/text_amount");
         if (amount.equals("Null") == false) {
             System.out.println(det + "Check TimeLine Amount");
@@ -180,7 +183,7 @@ public class CheckTimeLine implements AndroidAction {
         try {
             if (driver.findElementById("it.nexi.yap.stg:id/text_type").isDisplayed()) {
 
-                type = "HAI CHIESTO";
+          //      type = "HAI CHIESTO";
                 MobileElement el6 = (MobileElement) driver.findElementById("it.nexi.yap.stg:id/text_type");
                 if (type.equals("Null") == false) {
                     System.out.println(det + "Check TimeLine Type");
@@ -212,27 +215,28 @@ public class CheckTimeLine implements AndroidAction {
                 } catch (Exception e) {
                     System.out.println("[WARNING] Check Warning: KO");
                 }
-//                do {
-//                    try {
-//                        Thread.sleep(2000);
-//                        String var = "//android.widget.TextView[@text = '"+message+"']";
-//                        if (driver.findElementByXPath(var).isDisplayed()) {
-//                            driver.findElementByXPath(var).click();
-//                            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-//                            driver.findElementById("it.nexi.yap.stg:id/tl_swipe_delete").click();
-//                            System.out.println(det + "Event Deleted");
-//                            break;
-//                            //android.widget.TextView[@text = '12345']
-//                        }
-//                    } catch (Exception e) {
-//                        action = new TouchAction(driver);
-//                        action.longPress(PointOption.point(xStart, yStart))
-//                                .moveTo(PointOption.point(xEnd, yEnd))
-//                                .release()
-//                                .perform();
-//                    }
-//                    i++;
-//                } while (i <= 20);
+                do {
+                    try {
+                        Thread.sleep(2000);
+                        String var = "//android.widget.TextView[@text = '"+message+"']";
+                        if (driver.findElementByXPath(var).isDisplayed()) {
+                            Thread.sleep(2000);
+                            driver.findElementByXPath(var).click();
+                            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+                            driver.findElementById("it.nexi.yap.stg:id/tl_swipe_delete").click();
+                            System.out.println(det + "Event Deleted");
+                            break;
+                            //android.widget.TextView[@text = '12345']
+                        }
+                    } catch (Exception e) {
+                        action = new TouchAction(driver);
+                        action.longPress(PointOption.point(xStart, yStart))
+                                .moveTo(PointOption.point(xEnd, yEnd))
+                                .release()
+                                .perform();
+                    }
+                    i++;
+                } while (i <= 20);
             }
         } catch (Exception e) {
             System.out.println(det + "Event Cannot be Deleted");
