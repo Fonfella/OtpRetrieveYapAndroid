@@ -22,16 +22,18 @@ public class CheckTimeLine implements AndroidAction {
     private static final String det = "[DETAILS] ";
 
     @Parameter(defaultValue = "Diego Lettieri")
-    public String user;
+    private String user;
 
     @Parameter(defaultValue = "+1,00€")
-    public String amount;
+    private String amount;
 
     @Parameter(defaultValue = "")
-    public String message;
+    private String message;
 
     @Parameter(defaultValue = "HAI CHIESTO")
-    public String type;
+    private String type;
+
+    public void setUser(String user) { this.user = user; }
 
     @Override
     public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
@@ -61,12 +63,8 @@ public class CheckTimeLine implements AndroidAction {
         String val = "";
         try {
             if (driver.findElementByXPath("//*[@resource-id='it.nexi.yap.stg:id/button_primary']").isDisplayed() == true) {
+                Thread.sleep(1000);
                 driver.findElementByXPath("//*[@resource-id='it.nexi.yap.stg:id/button_primary']").click();
-                String v = "//*[contains(@text,sost)]";
-                String ch = "\'";
-                String toCheck = ch + el1text + ch;
-                //val = v.replaceAll("sost", toCheck);
-
                  val = "//android.widget.TextView[@text = '"+message+"']";
             }
         } catch (Exception e) {
@@ -81,7 +79,11 @@ public class CheckTimeLine implements AndroidAction {
         }
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         MobileElement variable = (MobileElement) driver.findElementById("it.nexi.yap.stg:id/view_root");
         Rectangle targetRectangle = variable.getRect();
         xStart = Math.round(targetRectangle.getX() + targetRectangle.getWidth() / 2);
