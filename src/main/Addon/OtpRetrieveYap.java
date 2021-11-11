@@ -22,14 +22,12 @@ import org.openqa.selenium.WebElement;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@Action(name="Otp Retrieve Yap Fonfella")
-public class OtpRetrieveYapFonfella implements AndroidAction {
+@Action(name="Yap OTP Retrieve")
+public class OtpRetrieveYap implements AndroidAction {
 
-    @Parameter(defaultValue = "https://stgapi.nexi.it/mfa/getlastotp?user=%2B39")
-    public String startUrl;
+    @Parameter(defaultValue = "")
+    public String myResponse;
 
-    @Parameter(defaultValue = "3486896752")
-    public String numeroTelefono;
 
     @Override
     public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
@@ -41,13 +39,7 @@ public class OtpRetrieveYapFonfella implements AndroidAction {
         // Get report object
         ActionReporter report = helper.getReporter();
 
-        String numeroTelefono = "3486896752";
-        String startUrl = "https://stgapi.nexi.it/mfa/getlastotp?user=%2B39";
-        String url = startUrl + numeroTelefono; //telephoneNumber parameter
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(url).build();
-        try (Response response = client.newCall(request).execute()) {
-            String myResponse = response.body().string();
+
             if (myResponse.contains("Nessun OTP trovato")) {
                 report.result("Nessun OTP trovato");
                 b = "0";
@@ -59,13 +51,10 @@ public class OtpRetrieveYapFonfella implements AndroidAction {
                 //+telephonNumber);
 
                 driver.findElementById("it.nexi.yap.stg:id/input_password").sendKeys(var);
-                report.result("codice OTP trovato: " + var + "\n" + "per utente = " + numeroTelefono);
+                report.result("codice OTP trovato: " + var + "\n" );
                 b="1";
             }
-        } catch (IOException e) {
-            e.printStackTrace();
 
-        }
         if (a == b) {
             return ExecutionResult.FAILED;
         }
