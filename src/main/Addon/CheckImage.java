@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-@Action(name="Yap OTP Retrieve")
+@Action(name="ruota foto e Verifica Immagine")
 public class CheckImage implements AndroidAction {
 
     @Parameter(defaultValue = "SETEFINSPA,VLE GIULIO RICHARD 7,20143,Data 03/11/21,TOTALE,0")
