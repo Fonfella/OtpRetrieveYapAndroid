@@ -5,7 +5,7 @@ import io.testproject.java.classes.DriverSettings;
 import io.testproject.java.enums.DriverType;
 import io.testproject.java.sdk.v2.Runner;
 
-import main.Addon.CheckTimeLine;
+import main.Addon.OtpRetrieveYapFonfella;
 
 
 public class ActionRunner {
@@ -18,12 +18,12 @@ public class ActionRunner {
 
         try(Runner runner = new Runner(devToken, driverSettings)){
 
-            CheckTimeLine ctl = new CheckTimeLine();
+            OtpRetrieveYapFonfella addon = new OtpRetrieveYapFonfella();
 
-            AndroidDriver driver = runner.getDriver(ctl);
+            AndroidDriver driver = runner.getDriver(addon);
 
             //Click all the menu items of the menu
-            runner.run(ctl);
+            runner.run(addon);
 
         }
     }
