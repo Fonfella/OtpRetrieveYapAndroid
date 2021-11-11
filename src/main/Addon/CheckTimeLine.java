@@ -11,6 +11,7 @@ import io.testproject.java.sdk.v2.addons.AndroidAction;
 import io.testproject.java.sdk.v2.addons.helpers.AndroidAddonHelper;
 import io.testproject.java.sdk.v2.enums.ExecutionResult;
 import io.testproject.java.sdk.v2.exceptions.FailureException;
+import io.testproject.java.sdk.v2.reporters.ActionReporter;
 import org.openqa.selenium.Rectangle;
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +20,6 @@ public class CheckTimeLine implements AndroidAction {
 
     private static final float HORIZONTAL_MARGIN_PERCENTAGE = 0.2f;
     private static final float VERTICAL_MARGIN_PERCENTAGE = 0.1f;
-    private static final String det = "[DETAILS] ";
 
     @Parameter(defaultValue = "Diego Lettieri")
     private String user;
@@ -39,21 +39,37 @@ public class CheckTimeLine implements AndroidAction {
     public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
 
         AndroidDriver driver = helper.getDriver();
+        // Get report object
+        ActionReporter report = helper.getReporter();
+
+        //variabili per creazione messaggio Addon
+        String a = "";
+        String b = "";
+        String c = "";
+        String d = "";
+        String e = "";
+        String f = "";
+        String g  = "";
 
         int xStart;
         int xEnd;
         int yStart;
         int yEnd;
 
+//              user = "Diego Lettieri";
+//            amount = "+1,00€";
+//              type = "HAI CHIESTO";
+//        message = "";
+
         MobileElement el1 = null;
         MobileElement date = null;
         try {
-            if (driver.findElementByXPath("//*[@resource-id='it.nexi.yap.stg:id/text_message']").isDisplayed() == true) {
-                el1 = (MobileElement) driver.findElementByXPath("//*[@resource-id='it.nexi.yap.stg:id/text_message']");
+            if (driver.findElementById("it.nexi.yap.stg:id/text_message").isDisplayed() == true) {
+                el1 = (MobileElement) driver.findElementById("it.nexi.yap.stg:id/text_message");
                 message = el1.getText();
                 date = (MobileElement) driver.findElementById("it.nexi.yap.stg:id/text_date");
             }
-        } catch (Exception e) {
+        } catch (Exception exc) {
             el1 = (MobileElement) driver.findElementById("it.nexi.yap.stg:id/text_date");
         }
 
@@ -67,7 +83,7 @@ public class CheckTimeLine implements AndroidAction {
                 driver.findElementByXPath("//*[@resource-id='it.nexi.yap.stg:id/button_primary']").click();
                  val = "//android.widget.TextView[@text = '"+message+"']";
             }
-        } catch (Exception e) {
+        } catch (Exception exc) {
             driver.findElementByXPath("//*[@resource-id='it.nexi.yap.stg:id/button_continue']").click();
             String[] parts = el1text.split("• ");
             String part2 = parts[1]; // Hours
@@ -81,8 +97,8 @@ public class CheckTimeLine implements AndroidAction {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         try {
             Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (InterruptedException exc) {
+            exc.printStackTrace();
         }
         MobileElement variable = (MobileElement) driver.findElementById("it.nexi.yap.stg:id/view_root");
         Rectangle targetRectangle = variable.getRect();
@@ -113,7 +129,7 @@ public class CheckTimeLine implements AndroidAction {
                     driver.findElementByXPath(val).click();
                     break;
                 }
-            } catch (Exception e) {
+            } catch (Exception exc) {
 
                 action = new TouchAction(driver);
                 action.longPress(PointOption.point(xStart, yStart))
@@ -122,45 +138,45 @@ public class CheckTimeLine implements AndroidAction {
                         .perform();
             }
             i++;
-            System.out.println(det + "I searching the object in Timeline, attempt number: " + i + " - " + val);
+            System.out.println("I searching the object in Timeline, attempt number: " + i + " - " + val);
         } while (i <= 20);
 
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         MobileElement el2 = (MobileElement) driver.findElementById("it.nexi.yap.stg:id/text_title");
-  //      user = "Diego Lettieri";
+
         if (user.equals("Null") == false) {
-            System.out.println(det + "Check TimeLine User");
-            System.out.println(det + "Expected values: [" + user + "]");
-            System.out.println(det + "Actual values: [" + el2.getText() + "]");
+            System.out.println("Check TimeLine User");
+            System.out.println("Expected values: [" + user + "]");
+            System.out.println("Actual values: [" + el2.getText() + "]");
             if (user.equals(el2.getText())) {
-                System.out.println(det + "TimeLine User is OK");
+                a = ("TimeLine_Utente ("+user+") -> OK");
             } else {
-                System.out.println(det + "TimeLine User is KO");
+                a = ("TimeLine_Utente ("+user+") -> OK");
                 driver.close();
             }
         }
-    //    amount = "-1,00€";
+
         MobileElement el3 = (MobileElement) driver.findElementById("it.nexi.yap.stg:id/text_amount");
         if (amount.equals("Null") == false) {
-            System.out.println(det + "Check TimeLine Amount");
-            System.out.println(det + "Expected values: [" + amount + "]");
-            System.out.println(det + "Actual values: [" + el3.getText() + "]");
+            System.out.println("Check TimeLine Amount");
+            System.out.println("Expected values: [" + amount + "]");
+            System.out.println("Actual values: [" + el3.getText() + "]");
             if (amount.equals(el3.getText())) {
-                System.out.println(det + "TimeLine Amount is OK");
+                b = ("TimeLine_Importo ("+amount+") -> OK");
             } else {
-                System.out.println(det + "TimeLine Amount is KO");
+               report.result("TimeLine_Importo ("+amount+") -> KO");
                 driver.close();
             }
         }
 
         MobileElement el4 = (MobileElement) driver.findElementById("it.nexi.yap.stg:id/text_date");
         if (dateText.contains(el4.getText())) {
-            System.out.println(det + "Check TimeLine Date");
-            System.out.println(det + "Expected values:: [" + dateText + "]");
-            System.out.println(det + "Actual values: [" + el4.getText() + "]");
-            System.out.println(det + "TimeLine Date is OK");
+            System.out.println("Check TimeLine Date");
+            System.out.println("Expected values:: [" + dateText + "]");
+            System.out.println("Actual values: [" + el4.getText() + "]");
+            c = ("TimeLine_Data ("+dateText+") -> OK");
         } else {
-            System.out.println(det + "TimeLine Date is KO");
+            report.result("TimeLine_Data ("+dateText+") -> KO");
             driver.close();
         }
 
@@ -168,43 +184,45 @@ public class CheckTimeLine implements AndroidAction {
             if (driver.findElementById("it.nexi.yap.stg:id/text_message").isDisplayed()) {
                 MobileElement el5 = (MobileElement) driver.findElementById("it.nexi.yap.stg:id/text_message");
                 if (message.equals("Null") == false) {
-                    System.out.println(det + "Check TimeLine Message");
-                    System.out.println(det + "Expected values:: [" + message + "]");
-                    System.out.println(det + "Actual values: [" + el5.getText() + "]");
+                    System.out.println("Check TimeLine Message");
+                    System.out.println("Expected values:: [" + message + "]");
+                    System.out.println("Actual values: [" + el5.getText() + "]");
                     if (message.equals(el5.getText())) {
-                        System.out.println(det + "TimeLine Message is OK");
+
+                        d = ("TimeLine_Messaggio ("+message+") -> OK");
                     } else {
-                        System.out.println(det + "TimeLine Message is KO");
+                        report.result("TimeLine_Messaggio ("+message+") -> KO");
                         driver.close();
                     }
                 }
             }
-        } catch (Exception e) {
-            System.out.println(det + "TimeLine Message: Not Present");
+        } catch (Exception exc) {
+            d = ("TimeLine_Messaggio ("+message+") -> Not Present");
+
         }
         try {
             if (driver.findElementById("it.nexi.yap.stg:id/text_type").isDisplayed()) {
 
-          //      type = "HAI CHIESTO";
                 MobileElement el6 = (MobileElement) driver.findElementById("it.nexi.yap.stg:id/text_type");
                 if (type.equals("Null") == false) {
-                    System.out.println(det + "Check TimeLine Type");
-                    System.out.println(det + "Expected values:: [" + type + "]");
-                    System.out.println(det + "Actual values: [" + el6.getText() + "]");
+                    System.out.println("Check TimeLine Type");
+                    System.out.println("Expected values:: [" + type + "]");
+                    System.out.println("Actual values: [" + el6.getText() + "]");
                     if (type.equals(el6.getText())) {
-                        System.out.println(det + "TimeLine Type is OK");
+                        e = ("TimeLine_Type ("+type+") -> OK");
+
                     } else {
-                        System.out.println(det + "TimeLine Type is KO");
+                        report.result("TimeLine_Type ("+type+") -> KO");
                         driver.close();
                     }
                 }
             }
-        } catch (Exception e) {
-            System.out.println(det + "TimeLine Type: Not Present");
+        } catch (Exception exc) {
+            e = ("TimeLine_Type ("+type+") -> Not Present");
         }
         try {
             if (driver.findElementById("it.nexi.yap.stg:id/tl_swipe_cancel").isDisplayed() == true) {
-                System.out.println(det + "I Delete the Event");
+                report.result("Stato Evento -> Cancellazione in corso...");
                 driver.findElementById("it.nexi.yap.stg:id/tl_swipe_cancel").click();
                 driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
                 try {
@@ -213,9 +231,9 @@ public class CheckTimeLine implements AndroidAction {
                     //    driver.findElementById(warningToCheck).isDisplayed ();
                     //    MobileElement el1 = (MobileElement)driver.findElementById ( warningToCheck );
                     elb.isDisplayed();
-                    System.out.println(det + "Check Warning: OK -> [" + elb.getText() + "]");
-                } catch (Exception e) {
-                    System.out.println("[WARNING] Check Warning: KO");
+                   f = ("Controllo Banner OK -> [" + elb.getText() + "]");
+                } catch (Exception exc) {
+                   f = ("[ATTENZIONE] Controllo Banner -> KO");
                 }
                 do {
                     try {
@@ -226,11 +244,11 @@ public class CheckTimeLine implements AndroidAction {
                             driver.findElementByXPath(var).click();
                             driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
                             driver.findElementById("it.nexi.yap.stg:id/tl_swipe_delete").click();
-                            System.out.println(det + "Event Deleted");
+                            g = ("Stato Evento -> Cancellato!!!");
                             break;
                             //android.widget.TextView[@text = '12345']
                         }
-                    } catch (Exception e) {
+                    } catch (Exception exc) {
                         action = new TouchAction(driver);
                         action.longPress(PointOption.point(xStart, yStart))
                                 .moveTo(PointOption.point(xEnd, yEnd))
@@ -240,9 +258,17 @@ public class CheckTimeLine implements AndroidAction {
                     i++;
                 } while (i <= 20);
             }
-        } catch (Exception e) {
-            System.out.println(det + "Event Cannot be Deleted");
+        } catch (Exception exc) {
+            g = ("Evento non Cancellabile");
         }
+        report.result(a + "\n" +
+                      b + "\n" +
+                      c + "\n" +
+                      d + "\n" +
+                      e + "\n" +
+                      f + "\n" +
+                      g
+                );
         return ExecutionResult.PASSED;
     }
 }
