@@ -5,7 +5,7 @@ import io.testproject.java.classes.DriverSettings;
 import io.testproject.java.enums.DriverType;
 import io.testproject.java.sdk.v2.Runner;
 
-import main.Addon.VerificaSaldo;
+import main.Addon.VerificaValoreForziere;
 
 
 public class ActionRunner {
@@ -18,7 +18,7 @@ public class ActionRunner {
 
         try(Runner runner = new Runner(devToken, driverSettings)){
 
-            VerificaSaldo addon = new VerificaSaldo();
+            VerificaValoreForziere addon = new VerificaValoreForziere();
 
             AndroidDriver driver = runner.getDriver(addon);
 
