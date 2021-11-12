@@ -9,22 +9,8 @@ import io.testproject.java.sdk.v2.addons.helpers.AndroidAddonHelper;
 import io.testproject.java.sdk.v2.enums.ExecutionResult;
 import io.testproject.java.sdk.v2.exceptions.FailureException;
 import io.testproject.java.sdk.v2.reporters.ActionReporter;
-import net.sourceforge.tess4j.ITesseract;
-import net.sourceforge.tess4j.Tesseract;
-import net.sourceforge.tess4j.TesseractException;
 
-import javax.imageio.ImageIO;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
-@Action(name="ruota foto e Verifica Immagine")
+@Action(name="Yap Verifica Saldo dopo Ricarica")
 public class VerificaSaldo implements AndroidAction {
 
     @Parameter(defaultValue = "55")
@@ -32,8 +18,6 @@ public class VerificaSaldo implements AndroidAction {
 
     @Parameter(defaultValue = "5")
     public String valoreRicarica;
-
-
 
     @Override
     public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
