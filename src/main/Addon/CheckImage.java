@@ -18,6 +18,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FilePermission;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,6 +43,7 @@ public class CheckImage implements AndroidAction {
         List finalReport = new LinkedList();
 
 
+
         AndroidDriver driver = helper.getDriver();
         // Get report object
         ActionReporter report = helper.getReporter();
@@ -51,22 +53,28 @@ public class CheckImage implements AndroidAction {
         image.setLanguage("ita");
 
         //paramenter section
-       // String folderPath = "C:\\CartellaLavoro\\provaScontrino.jpeg";
+     //
+    //    String folderPath = "\\\\ASCSBCWTL283\\condivisa\\provaScontrino.jpeg";
         //  String folderPath = "C:\\CartellaLavoro\\Scontrino.jpg";
         //File f = new File ("\\\\10.10.10.123\\Addons\\readme.txt");
         // String folderPath = "\\\\10.130.144.92\\Shared\\TM_Export\\TM004341_BC1941015\\TMROBOT_VisionImages\\P61_TEST_PRG_R05\\ImageLightOn_P\\2020-09-25\\source\\provaScontrino.jpg";
 
         //esempio OK
-    //   values = "SETEFINSPA,VLE GIULIO RICHARD 7,20143,Data 03/11/21,TOTALE,0";
+      // values = "SETEFINSPA,VLE GIULIO RICHARD 7,20143,Data 03/11/21,TOTALE,0";
 
         // esempio KO
       //  values = "SETEFINSPA,VLE GIULIiiiO RICHARD 7,20143,Data 03/11/21,TOTALE,0";
-
-
+        FilePermission permission = new FilePermission(folderPath, "read");
+        permission = new FilePermission(folderPath, "write");
+        File file = new File(folderPath);
+        file.setExecutable(false);
+        file.setReadable(true);
+        file.setWritable(true);
+        System.out.println("File permissions changed.");
         //parte per rotazione
         BufferedImage bm = null;
         try {
-            bm = ImageIO.read(new File(folderPath));
+            bm = ImageIO.read(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -84,7 +92,7 @@ public class CheckImage implements AndroidAction {
         rotateOp.filter(bm,rotatedImage);
 
         try {
-            ImageIO.write(rotatedImage, "JPG", new File("C:\\CartellaLavoro\\rotatedImage.jpg"));
+            ImageIO.write(rotatedImage, "JPG", new File("\\\\ASCSBCWTL283\\condivisa\\rotatedImage.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -92,7 +100,7 @@ public class CheckImage implements AndroidAction {
 
         // String[] checkObject = {"1,50", "16,90", "Pippo", "77,10", "Carlo", "CAFFE", "IVA Prezzo", "GRAZIE E ARRIVEDERCI"};
         try {
-            String str = image.doOCR(new File("C:\\CartellaLavoro\\rotatedImage.jpg"));
+            String str = image.doOCR(new File("\\\\ASCSBCWTL283\\condivisa\\rotatedImage.jpg"));
             if (viewReceipt.equals("true")) {
                 System.out.println("Data from Image is: " +str);
             }
