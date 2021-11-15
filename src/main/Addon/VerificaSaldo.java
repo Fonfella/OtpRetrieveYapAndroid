@@ -19,17 +19,37 @@ public class VerificaSaldo implements AndroidAction {
     @Parameter(defaultValue = "5")
     public String valoreRicarica;
 
+    @Parameter(defaultValue = "somma", description = "opzionale")
+    public String operazione;
+
+    @Parameter(defaultValue = "android")
+    public String sistema;
+
     @Override
     public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
 
-    //    valorePrecedente = "55,00";
-    //    valoreRicarica = "0";
+        valorePrecedente = "118,00";
+        valoreRicarica = "1";
+        operazione="sottrazione";
+        String valoreCorrente = null;
+
+        if (operazione.equals(null) || operazione.length() == 0) {
+            operazione = "somma";
+        }
 
         AndroidDriver driver = helper.getDriver();
         // Get report object
         ActionReporter report = helper.getReporter();
 
-        String valoreCorrente = driver.findElementById("it.nexi.yap.stg:id/text_balance").getText();
+
+        if (driver.getCapabilities().getCapability("platformName").toString().contains("ANDROID")) {
+            valoreCorrente = driver.findElementById("it.nexi.yap.stg:id/text_balance").getText();
+        } else {
+            //MODIFICARE
+            report.result("ios ancora non implementato");
+            driver.close();
+        }
+
 
         String [] impsenzavirgolaCorrente = valoreCorrente.split(",");
         String var1 = impsenzavirgolaCorrente[0];
@@ -40,14 +60,25 @@ public class VerificaSaldo implements AndroidAction {
         int a = Integer.parseInt(var1);
         int b = Integer.parseInt(var2);
         int c = Integer.parseInt(valoreRicarica);
+        String o = null;
 
-        if (a == b + c ) {
-            report.result("Il saldo è correttamente aggiornato");
-            return ExecutionResult.PASSED;
+        if (operazione.equals("somma") || operazione.equals("")) {
+            o = var2 + "+" + valoreRicarica + "=" + var1;
+            if (a == b + c) {
+                report.result("Il saldo è correttamente aggiornato ["+o+"]");
+                return ExecutionResult.PASSED;
+            }
         }
 
-        report.result("IL saldo NON e' Aggiornato");
+        if (operazione.equals("differenza") || operazione.equals("sottrazione")) {
+            o = var2 + "-" + valoreRicarica + "=" + var1;
+            if (a == b - c ) {
+                report.result("Il saldo è correttamente aggiornato ["+o+"]");
+                return ExecutionResult.PASSED;
+            }
+        }
+
+        report.result("IL saldo NON e' Aggiornato["+o+"]");
         return ExecutionResult.FAILED;
     }
-
 }
