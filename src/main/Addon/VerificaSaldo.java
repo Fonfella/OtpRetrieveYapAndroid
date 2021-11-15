@@ -10,7 +10,7 @@ import io.testproject.java.sdk.v2.enums.ExecutionResult;
 import io.testproject.java.sdk.v2.exceptions.FailureException;
 import io.testproject.java.sdk.v2.reporters.ActionReporter;
 
-@Action(name="Yap Verifica Saldo dopo Ricarica")
+@Action(name="Yap Verifica Saldo", description = "indicare -> somma o sottrazione")
 public class VerificaSaldo implements AndroidAction {
 
     @Parameter(defaultValue = "55")
@@ -22,15 +22,12 @@ public class VerificaSaldo implements AndroidAction {
     @Parameter(defaultValue = "somma", description = "opzionale")
     public String operazione;
 
-    @Parameter(defaultValue = "android")
-    public String sistema;
-
     @Override
     public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
 
-        valorePrecedente = "118,00";
-        valoreRicarica = "1";
-        operazione="sottrazione";
+    //    valorePrecedente = "118,00";
+    //    valoreRicarica = "1";
+    //    operazione="sottrazione";
         String valoreCorrente = null;
 
         if (operazione.equals(null) || operazione.length() == 0) {
