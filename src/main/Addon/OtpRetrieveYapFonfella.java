@@ -37,12 +37,10 @@ public class OtpRetrieveYapFonfella implements AndroidAction {
         String a = "0";
         String b = null;
 
-        AndroidDriver driver = helper.getDriver();
+        AppiumDriver driver = helper.getDriver();
         // Get report object
         ActionReporter report = helper.getReporter();
 
-        String numeroTelefono = "3486896752";
-        String startUrl = "https://stgapi.nexi.it/mfa/getlastotp?user=%2B39";
         String url = startUrl + numeroTelefono; //telephoneNumber parameter
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(url).build();
