@@ -13,23 +13,13 @@ import io.testproject.java.sdk.v2.drivers.WebDriver;
 import io.testproject.java.sdk.v2.enums.ExecutionResult;
 import io.testproject.java.sdk.v2.exceptions.FailureException;
 import io.testproject.java.sdk.v2.reporters.ActionReporter;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
-@Action(name="Otp Retrieve Yap Fonfella")
+//inserito testproject con testfactory
+@Action(name="Yap Recupero Otp")
 public class OtpRetrieveYapFonfella implements AndroidAction {
 
-    @Parameter(defaultValue = "https://stgapi.nexi.it/mfa/getlastotp?user=%2B39")
-    public String startUrl;
-
-    @Parameter(defaultValue = "3486896752")
-    public String numeroTelefono;
+    @Parameter(defaultValue = "")
+    public String myResponse;
 
     @Override
     public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
@@ -37,15 +27,10 @@ public class OtpRetrieveYapFonfella implements AndroidAction {
         String a = "0";
         String b = null;
 
-        AppiumDriver driver = helper.getDriver();
+        AndroidDriver driver = helper.getDriver();
         // Get report object
         ActionReporter report = helper.getReporter();
 
-        String url = startUrl + numeroTelefono; //telephoneNumber parameter
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(url).build();
-        try (Response response = client.newCall(request).execute()) {
-            String myResponse = response.body().string();
             if (myResponse.contains("Nessun OTP trovato")) {
                 report.result("Nessun OTP trovato");
                 b = "0";
@@ -57,13 +42,10 @@ public class OtpRetrieveYapFonfella implements AndroidAction {
                 //+telephonNumber);
 
                 driver.findElementById("it.nexi.yap.stg:id/input_password").sendKeys(var);
-                report.result("codice OTP trovato: " + var + "\n" + "per utente = " + numeroTelefono);
+                report.result("codice OTP trovato: " + var);
                 b="1";
             }
-        } catch (IOException e) {
-            e.printStackTrace();
 
-        }
         if (a == b) {
             return ExecutionResult.FAILED;
         }
