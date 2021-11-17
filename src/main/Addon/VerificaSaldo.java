@@ -10,7 +10,7 @@ import io.testproject.java.sdk.v2.enums.ExecutionResult;
 import io.testproject.java.sdk.v2.exceptions.FailureException;
 import io.testproject.java.sdk.v2.reporters.ActionReporter;
 
-@Action(name="Yap Verifica Saldo", description = "indicare -> somma o sottrazione")
+@Action(name="Android Verifica Saldo")
 public class VerificaSaldo implements AndroidAction {
 
     @Parameter(defaultValue = "55")
@@ -40,16 +40,6 @@ public class VerificaSaldo implements AndroidAction {
         AndroidDriver driver = helper.getDriver();
         // Get report object
         ActionReporter report = helper.getReporter();
-
-
-//        if (driver.getCapabilities().getCapability("platformName").toString().contains("ANDROID")) {
-//            valoreCorrente = driver.findElementById("it.nexi.yap.stg:id/text_balance").getText();
-//        } else {
-//            //MODIFICARE
-//            report.result("ios ancora non implementato");
-//            driver.close();
-//        }
-
 
         String [] impsenzavirgolaCorrente = valoreCorrente.split(",");
         String var1 = impsenzavirgolaCorrente[0];
