@@ -14,6 +14,9 @@ import io.testproject.java.sdk.v2.reporters.ActionReporter;
 public class VerificaSaldo implements AndroidAction {
 
     @Parameter(defaultValue = "55")
+    public String valoreCorrente;
+
+    @Parameter(defaultValue = "55")
     public String valorePrecedente;
 
     @Parameter(defaultValue = "5")
@@ -25,10 +28,10 @@ public class VerificaSaldo implements AndroidAction {
     @Override
     public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
 
-    //    valorePrecedente = "118,00";
-    //    valoreRicarica = "1";
-    //    operazione="sottrazione";
-        String valoreCorrente = null;
+//        valorePrecedente = "138,00";
+//        valoreRicarica = "15";
+//        operazione="differenza";
+//        valoreCorrente = "128";
 
         if (operazione.equals(null) || operazione.length() == 0) {
             operazione = "somma";
@@ -39,13 +42,13 @@ public class VerificaSaldo implements AndroidAction {
         ActionReporter report = helper.getReporter();
 
 
-        if (driver.getCapabilities().getCapability("platformName").toString().contains("ANDROID")) {
-            valoreCorrente = driver.findElementById("it.nexi.yap.stg:id/text_balance").getText();
-        } else {
-            //MODIFICARE
-            report.result("ios ancora non implementato");
-            driver.close();
-        }
+//        if (driver.getCapabilities().getCapability("platformName").toString().contains("ANDROID")) {
+//            valoreCorrente = driver.findElementById("it.nexi.yap.stg:id/text_balance").getText();
+//        } else {
+//            //MODIFICARE
+//            report.result("ios ancora non implementato");
+//            driver.close();
+//        }
 
 
         String [] impsenzavirgolaCorrente = valoreCorrente.split(",");
