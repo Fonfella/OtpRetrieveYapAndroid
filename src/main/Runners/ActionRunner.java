@@ -11,7 +11,7 @@ import main.Addon.CheckTimeLine;
 public class ActionRunner {
 
 
-    private final static String devToken = "nLX1e4exBULyHTBJeXZRJoBqQ7LCv8qsY2d-2QHK36Y1";
+    private final static String devToken = "pPoj9COuCUjyu03q06zbS3gHo3syqsZrxr8f3_7lnVQ1";
 
     public static void main(String[] args) throws Exception{
         DriverSettings driverSettings = new DriverSettings(DriverType.Appium_Android);
