@@ -3,12 +3,17 @@ package main.Addon;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSElement;
 import io.testproject.java.annotations.v2.Action;
 import io.testproject.java.annotations.v2.Parameter;
 import io.testproject.java.sdk.v2.addons.AndroidAction;
+import io.testproject.java.sdk.v2.addons.IOSAction;
+import io.testproject.java.sdk.v2.addons.IOSElementAction;
 import io.testproject.java.sdk.v2.addons.WebAction;
 import io.testproject.java.sdk.v2.addons.helpers.AndroidAddonHelper;
+import io.testproject.java.sdk.v2.addons.helpers.IOSAddonHelper;
 import io.testproject.java.sdk.v2.addons.helpers.WebAddonHelper;
+import io.testproject.java.sdk.v2.drivers.IOSDriver;
 import io.testproject.java.sdk.v2.drivers.WebDriver;
 import io.testproject.java.sdk.v2.enums.ExecutionResult;
 import io.testproject.java.sdk.v2.exceptions.FailureException;
@@ -22,23 +27,24 @@ import org.openqa.selenium.WebElement;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@Action(name="Yap OTP Retrieve")
-public class OtpRetrieveYap implements AndroidAction {
+@Action(name="Yap OTP Retrieve IOS")
+public class OtpRetrieveYap implements IOSAction {
 
     @Parameter(defaultValue = "")
     public String myResponse;
 
 
     @Override
-    public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
+    public ExecutionResult execute(IOSAddonHelper helper) throws FailureException {
 
         String a = "0";
         String b = null;
 
-        AndroidDriver driver = helper.getDriver();
+        //    AndroidDriver driver = helper.getDriver();
         // Get report object
         ActionReporter report = helper.getReporter();
 
+        IOSDriver driver = helper.getDriver();
 
             if (myResponse.contains("Nessun OTP trovato")) {
                 report.result("Nessun OTP trovato");
@@ -50,7 +56,7 @@ public class OtpRetrieveYap implements AndroidAction {
                 //          System.out.println("[DETAILS] I found OTP: "+var+", for user:") ;
                 //+telephonNumber);
 
-                driver.findElementById("it.nexi.yap.stg:id/input_password").sendKeys(var);
+                driver.findElementByXPath("//XCUIElementTypeOther[2]/XCUIElementTypeButton").sendKeys(var);
                 report.result("codice OTP trovato: " + var + "\n" );
                 b="1";
             }
