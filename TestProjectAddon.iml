@@ -12,12 +12,14 @@
     <orderEntry type="module-library">
       <library name="Maven: io.testproject:java-sdk:0.0.1-SNAPSHOT">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../TestProjectSDK/TestProjectSDK.jar!/" />
+          <root url="jar://C:/CartellaLavoro/TestProjectSDK/TestProjectSDK.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Maven: com.sun.mail:javax.mail:1.6.2" level="project" />
+    <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
     <orderEntry type="library" name="Maven: com.squareup.okhttp:okhttp-urlconnection:2.5.0" level="project" />
     <orderEntry type="library" name="Maven: com.squareup.okhttp:okhttp:2.5.0" level="project" />
     <orderEntry type="library" name="Maven: com.squareup.okio:okio:1.6.0" level="project" />
