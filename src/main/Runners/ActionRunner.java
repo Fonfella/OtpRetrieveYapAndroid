@@ -16,7 +16,7 @@ public class ActionRunner {
     private final static String devToken = "aNxPoEG9YVBdSO1bG4tuaaqRr2RDQFI-SlJn68uB8i01";
 
     public static void main(String[] args) throws Exception{
-        DriverSettings driverSettings = new DriverSettings(DriverType.Appium_iOS);
+        DriverSettings driverSettings = new DriverSettings(DriverType.iOSDriver);
 
 
         runner = Runner.createIOS(devToken, "78d622e53acab9f934065b66b3f36f2b5422605f",

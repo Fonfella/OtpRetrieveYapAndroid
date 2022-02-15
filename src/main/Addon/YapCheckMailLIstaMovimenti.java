@@ -33,6 +33,7 @@ import java.util.ArrayList;
 
 import java.util.Properties;
 
+
 import javax.mail.*;
 import javax.mail.Flags.Flag;
 
@@ -42,11 +43,14 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.ParseException;
 import javax.mail.search.FlagTerm;
 
-@Action(name="Yap verifica mail lista movimenti")
+@Action(name="Yap verifica mail lista movimenti_ios")
 public class YapCheckMailLIstaMovimenti implements IOSAction {
 
-    @Parameter(defaultValue = "")
-    public String myResponse;
+    @Parameter(defaultValue = "utenteverificalista@gmail.com")
+    public String user;
+
+    @Parameter(defaultValue = "pippopippo01")
+    public String password;
 
 
     @Override
@@ -62,15 +66,10 @@ public class YapCheckMailLIstaMovimenti implements IOSAction {
         IOSDriver driver = helper.getDriver();
 
         String host = "imap.gmail.com";
-        String mailStoreType = "imap";
-        String user = "utenteverificalista@gmail.com";
-        String password = "pippopippo01";
-       // String text = "Ciao Lollo,\n" +
-    //            "come richiesto, in calce trovi i movimenti contabilizzati sulla tua carta YAP n. 533004******0614 con IBAN IT50W3287501600N23000080015, nel periodo dal 01/01/22 al 31/01/22.\n" +
-      //          "\n" +
-       //         "Nessun movimento disponibile per il periodo scelto.\n" +
-       //         "\n" +
-       //         "Ti ricordiamo che YAP è un prodotto prepagato, pertanto la lista movimenti contabilizzati non costituisce estratto conto valido ai fini ISEE.";
+        String mailStoreType = "imaps";
+
+      //  String user = "utenteverificalista@gmail.com";
+      //  String password = "pippopippo01";
 
         try {
 
@@ -85,7 +84,7 @@ public class YapCheckMailLIstaMovimenti implements IOSAction {
             Session emailSession = Session.getDefaultInstance(properties);
 
             // create the imap store object and connect to the imap server
-            Store store = emailSession.getStore("imaps");
+            Store store = emailSession.getStore(mailStoreType);
 
             store.connect(host, user, password);
 
@@ -110,8 +109,10 @@ public class YapCheckMailLIstaMovimenti implements IOSAction {
                     if (message.getSubject().equals("YAP Elenco movimenti")) {
                         System.out.println("Messaggio correttamente ricevuto! mittente: " + message.getFrom()[0]);
                         a = "0";
+                        report.result("Messaggio correttamente ricevuto!" + "Mittente: "+ message.getFrom()[0]);
                     } else {
                         System.out.println("Messaggio NON ricevuto!!");
+                        report.result("Messaggio Non Ricevuto");
                         a="1";
                     }
 
@@ -119,6 +120,7 @@ public class YapCheckMailLIstaMovimenti implements IOSAction {
             } else {
                 System.out.println("Nessun messaggio da analizzare!!");
                 a="1";
+                report.result("Nessun Messaggio DA LEGGERE prensente");
             }
 
             inbox.close(false);
@@ -133,10 +135,6 @@ public class YapCheckMailLIstaMovimenti implements IOSAction {
         } else {
             return ExecutionResult.FAILED;
         }
-
-
-
-        ////*[matches(@label,'\d+\,?\d.*')]
 
     }
 
