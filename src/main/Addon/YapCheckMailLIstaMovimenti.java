@@ -43,8 +43,8 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.ParseException;
 import javax.mail.search.FlagTerm;
 
-@Action(name="Yap verifica mail lista movimenti_ios")
-public class YapCheckMailLIstaMovimenti implements IOSAction {
+@Action(name="Android Yap verifica mail lista movimenti")
+public class YapCheckMailLIstaMovimenti implements AndroidAction {
 
     @Parameter(defaultValue = "utenteverificalista@gmail.com")
     public String user;
@@ -54,7 +54,7 @@ public class YapCheckMailLIstaMovimenti implements IOSAction {
 
 
     @Override
-    public ExecutionResult execute(IOSAddonHelper helper) throws FailureException {
+    public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
 
         String a = "0";
         String b = null;
@@ -63,13 +63,17 @@ public class YapCheckMailLIstaMovimenti implements IOSAction {
         // Get report object
         ActionReporter report = helper.getReporter();
 
-        IOSDriver driver = helper.getDriver();
+        AndroidDriver driver = helper.getDriver();
 
         String host = "imap.gmail.com";
         String mailStoreType = "imaps";
 
-      //  String user = "utenteverificalista@gmail.com";
-      //  String password = "pippopippo01";
+        //da decommentare per utilizzo in debug
+    //    String user = "utenteverificalista@gmail.com";
+    //    String password = "pippopippo01";
+
+        String reportDetails1 = "";
+        String reportDetails2 = "";
 
         try {
 
@@ -107,9 +111,11 @@ public class YapCheckMailLIstaMovimenti implements IOSAction {
                     System.out.println("Text: " + message.getContent().toString());
 
                     if (message.getSubject().equals("YAP Elenco movimenti")) {
-                        System.out.println("Messaggio correttamente ricevuto! mittente: " + message.getFrom()[0]);
+                        System.out.println("Messaggio Ricevuto: " + message.getSubject());
+                        reportDetails1 ="Messaggio Ricevuto, oggetto: " + message.getSubject();
+                        System.out.println("mittente: " + message.getFrom()[0]);
+                        reportDetails2 ="Mittente: " + message.getFrom()[0];
                         a = "0";
-                        report.result("Messaggio correttamente ricevuto!" + "Mittente: "+ message.getFrom()[0]);
                     } else {
                         System.out.println("Messaggio NON ricevuto!!");
                         report.result("Messaggio Non Ricevuto");
@@ -131,6 +137,8 @@ public class YapCheckMailLIstaMovimenti implements IOSAction {
         }
 
         if (a.equals("0")) {
+            report.result(reportDetails1 + "\n" +
+                          reportDetails2);
             return ExecutionResult.PASSED;
         } else {
             return ExecutionResult.FAILED;
