@@ -31,10 +31,13 @@ public class VerificaSaldo implements IOSAction {
     @Override
     public ExecutionResult execute(IOSAddonHelper helper) throws FailureException {
 
-//        valorePrecedente = "138,00";
-//        valoreRicarica = "15";
-//        operazione="differenza";
-//        valoreCorrente = "128";
+        valorePrecedente = "296,00€";
+        valoreRicarica = "5";
+        operazione="somma";
+        valoreCorrente = "301,00€";
+
+
+
 
         if (operazione.equals(null) || operazione.length() == 0) {
             operazione = "somma";
