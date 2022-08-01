@@ -12,7 +12,7 @@
     <orderEntry type="module-library">
       <library name="Maven: io.testproject:java-sdk:0.0.1-SNAPSHOT">
         <CLASSES>
-          <root url="jar://C:/CartellaLavoro/TestProjectSDK/TestProjectSDK.jar!/" />
+          <root url="jar://C:/TestProject_SDK_0.65.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

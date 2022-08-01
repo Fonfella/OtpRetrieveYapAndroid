@@ -51,7 +51,7 @@
             <artifactId>java-sdk</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>system</scope>
-            <systemPath>C:/CartellaLavoro/TestProjectSDK/TestProjectSDK.jar</systemPath>
+            <systemPath>C:/TestProject_SDK_0.65.0.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.squareup.okhttp</groupId>

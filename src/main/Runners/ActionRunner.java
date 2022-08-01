@@ -5,20 +5,20 @@ import io.testproject.java.classes.DriverSettings;
 import io.testproject.java.enums.DriverType;
 import io.testproject.java.sdk.v2.Runner;
 
-import main.Addon.CheckTimeLine;
+import main.Addon.ResetApp;
 
 
 public class ActionRunner {
 
 
-    private final static String devToken = "nLX1e4exBULyHTBJeXZRJoBqQ7LCv8qsY2d-2QHK36Y1";
+    private final static String devToken = "rgcLJ3OzoYsJZXSgNI-vt73WpAOjnMHzV0tJhjU9xhU1";
 
     public static void main(String[] args) throws Exception{
         DriverSettings driverSettings = new DriverSettings(DriverType.Appium_Android);
 
         try(Runner runner = new Runner(devToken, driverSettings)){
 
-            CheckTimeLine ctl = new CheckTimeLine();
+            ResetApp ctl = new ResetApp();
 
             AndroidDriver driver = runner.getDriver(ctl);
 
