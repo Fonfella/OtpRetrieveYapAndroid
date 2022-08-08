@@ -3,7 +3,6 @@ package main.Addon;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.touch.offset.PointOption;
 import io.testproject.java.sdk.v2.addons.helpers.AndroidAddonHelper;
 import io.testproject.java.sdk.v2.drivers.AndroidDriver;
 import okhttp3.OkHttpClient;
@@ -16,12 +15,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.openqa.selenium.WebElement;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.TouchAction;
 
 
 public class Methods {
@@ -111,4 +107,12 @@ public class Methods {
         driver.findElement(MobileBy.AndroidUIAutomator(
                 "new UiScrollable(new UiSelector().scrollable(true)).scrollBackward()"));
     }
+
+    public String generatePhoneNumber(String prefiz, int type) {
+        Random rand = new Random();
+        int number = rand.nextInt(type);
+        String randomPhoneNumber = prefiz+number;
+        return randomPhoneNumber;
+    }
+
 }

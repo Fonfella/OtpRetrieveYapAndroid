@@ -16,15 +16,33 @@ public class AndroidRecuperoOtpNP implements AndroidAction {
     @Parameter(defaultValue = "")
     public String myResponse;
 
+    @Parameter (defaultValue = "")
+    public String insertValueUno;
 
-  //  public String myResponse = "user: carta_da_attivare2@yopmail.com OTP 443283";
+    @Parameter (defaultValue = "")
+    public String insertValueDue;
 
-    String onePositionOtpNexiPay = "//android.widget.RelativeLayout[1]/android.widget.RelativeLayout[1]/android.widget.FrameLayout//android.widget.EditText";
-    String twoPositionOtpNexiPay = "//android.widget.RelativeLayout[2]//android.widget.EditText";
-    String threePositionOtpNexiPay = "//android.widget.RelativeLayout[3]//android.widget.EditText";
-    String fourPositionOtpNexiPay = "//android.widget.RelativeLayout[4]//android.widget.EditText";
-    String fivePositionOtpNexiPay = "//android.widget.RelativeLayout[5]//android.widget.EditText";
-    String sixPositionOtpNexiPay = "//android.widget.RelativeLayout[6]//android.widget.EditText";
+    @Parameter (defaultValue = "")
+    public String insertValueTre;
+
+    @Parameter (defaultValue = "")
+    public String insertValueQuattro;
+
+    @Parameter (defaultValue = "")
+    public String insertValueCinque;
+
+    @Parameter (defaultValue = "")
+    public String insertValueSei;
+
+    //  public String myResponse = "user: carta_da_attivare2@yopmail.com OTP 443283";
+
+//    String insertValueUno = "//android.widget.RelativeLayout[1]/android.widget.RelativeLayout[1]/android.widget.FrameLayout//android.widget.EditText";
+//    String insertValueDue = "//android.widget.RelativeLayout[2]//android.widget.EditText";
+//    String insertValueTre = "//android.widget.RelativeLayout[3]//android.widget.EditText";
+//
+//    String insertValueQuattro = "//android.widget.RelativeLayout[4]//android.widget.EditText";
+//    String insertValueCinque = "//android.widget.RelativeLayout[5]//android.widget.EditText";
+//    String insertValueSei = "//android.widget.RelativeLayout[6]//android.widget.EditText";
 
     @Override
     public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
@@ -48,12 +66,12 @@ public class AndroidRecuperoOtpNP implements AndroidAction {
             String[] array=var.split("(?<=\\G.{1})");
             report.result("Codice OTP trovato: " + var);
 
-            driver.findElementByXPath(onePositionOtpNexiPay).sendKeys(array[0]);
-            driver.findElementByXPath(twoPositionOtpNexiPay).sendKeys(array[1]);
-            driver.findElementByXPath(threePositionOtpNexiPay).sendKeys(array[2]);
-            driver.findElementByXPath(fourPositionOtpNexiPay).sendKeys(array[3]);
-            driver.findElementByXPath(fivePositionOtpNexiPay).sendKeys(array[4]);
-            driver.findElementByXPath(sixPositionOtpNexiPay).sendKeys(array[5]);
+            driver.findElementByXPath(insertValueUno).sendKeys(array[0]);
+            driver.findElementByXPath(insertValueDue).sendKeys(array[1]);
+            driver.findElementByXPath(insertValueTre).sendKeys(array[2]);
+            driver.findElementByXPath(insertValueQuattro).sendKeys(array[3]);
+            driver.findElementByXPath(insertValueCinque).sendKeys(array[4]);
+            driver.findElementByXPath(insertValueSei).sendKeys(array[5]);
 
             b="1";
         }
