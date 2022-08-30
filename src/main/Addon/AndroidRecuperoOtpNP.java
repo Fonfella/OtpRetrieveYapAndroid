@@ -10,7 +10,7 @@ import io.testproject.java.sdk.v2.enums.ExecutionResult;
 import io.testproject.java.sdk.v2.exceptions.FailureException;
 import io.testproject.java.sdk.v2.reporters.ActionReporter;
 
-@Action(name="Android Recupero OTP NexiPay")
+@Action(name="Android Recupero OTP NexiPay(objInsert)")
 public class AndroidRecuperoOtpNP implements AndroidAction {
     //decommentare prima di push addon
     @Parameter(defaultValue = "")
