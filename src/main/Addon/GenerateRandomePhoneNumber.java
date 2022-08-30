@@ -28,7 +28,7 @@ public class GenerateRandomePhoneNumber implements AndroidAction {
     public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
         ActionReporter report = helper.getReporter();
         finalNumber = method.generatePhoneNumber(prefiz, type);
-       report.result(finalNumber);
+       report.result("Il numero creato è: " +finalNumber);
         return ExecutionResult.PASSED;
     }
 
