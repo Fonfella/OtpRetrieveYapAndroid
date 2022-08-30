@@ -11,6 +11,7 @@ import io.testproject.java.sdk.v2.reporters.ActionReporter;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.Flags.Flag;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.search.FlagTerm;
 
 @Action(name="Android Check mail Ricevuta")
@@ -67,10 +68,29 @@ public class AndroidCheckMailRicevuta implements AndroidAction {
                     Message message = messages[i];
                     message.setFlag(Flag.SEEN, true);
                     System.out.println("---------------------------------");
-                    System.out.println("Email Number " + (i + 1));
-                    System.out.println("Subject: " + message.getSubject());
-                    System.out.println("From: " + message.getFrom()[0]);
+                    report.result("Email Number " + (i + 1));
+                    report.result("Subject: " + message.getSubject());
+                    report.result("From: " + message.getFrom()[0]);
                     System.out.println("Text: " + message.getContent().toString());
+
+                    String contentType = message.getContentType();
+                    String messageContent="";
+
+                    if (contentType.contains("multipart")) {
+                        Multipart multiPart = (Multipart) message.getContent();
+                        int numberOfParts = multiPart.getCount();
+                        for (int partCount = 0; partCount < numberOfParts; partCount++) {
+                            MimeBodyPart part = (MimeBodyPart) multiPart.getBodyPart(partCount);
+                            messageContent = part.getContent().toString();
+                        }
+                    }
+                    else if (contentType.contains("text/plain")
+                            || contentType.contains("text/html")) {
+                        Object content = message.getContent();
+                        if (content != null) {
+                            messageContent = content.toString();
+                        }
+                    }
 
                     if (message.getSubject().equals("Ricevuta pagamento a SETEFI SPA")) {
                         System.out.println("Messaggio correttamente ricevuto! mittente: " + message.getFrom()[0]);
