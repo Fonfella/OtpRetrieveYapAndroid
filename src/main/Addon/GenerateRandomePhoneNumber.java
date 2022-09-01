@@ -14,7 +14,7 @@ import java.util.Random;
 @Action(name = "Generate Random Phone Number")
 public class GenerateRandomePhoneNumber implements AndroidAction {
     Methods method = new Methods();
-
+//
    @Parameter(direction = ParameterDirection.INPUT)
     public String prefiz;
 
@@ -24,15 +24,16 @@ public class GenerateRandomePhoneNumber implements AndroidAction {
     @Parameter(direction = ParameterDirection.OUTPUT)
     public String finalNumber;
 
+    @Parameter(direction = ParameterDirection.OUTPUT)
+    public String criptoNumber;
+
 
     public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
         ActionReporter report = helper.getReporter();
         finalNumber = method.generatePhoneNumber(prefiz, type);
-       report.result("Il numero creato è: " +finalNumber);
+        report.result("Il numero creato è: " +finalNumber);
+        String crypto = finalNumber.substring(finalNumber.length()-2);
+        criptoNumber = "*****"+crypto;
         return ExecutionResult.PASSED;
     }
-
-
-
-
 }

@@ -4,15 +4,13 @@ import io.appium.java_client.android.AndroidDriver;
 import io.testproject.java.classes.DriverSettings;
 import io.testproject.java.enums.DriverType;
 import io.testproject.java.sdk.v2.Runner;
-
-import main.Addon.AndroidRecuperoOtpNP;
 import main.Addon.GenerateRandomePhoneNumber;
 
 
 public class ActionRunner {
 
 
-    private final static String devToken = "W0hQvAJRinhXIj4f9Zki62bmf9aDL1pUrp2OZiK9rm81";
+    private final static String devToken = "rgcLJ3OzoYsJZXSgNI-vt73WpAOjnMHzV0tJhjU9xhU1";
 
     public static void main(String[] args) throws Exception{
         DriverSettings driverSettings = new DriverSettings(DriverType.Appium_Android);
