@@ -4,6 +4,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.testproject.java.classes.DriverSettings;
 import io.testproject.java.enums.DriverType;
 import io.testproject.java.sdk.v2.Runner;
+import main.Addon.Delete_Devices;
 import main.Addon.GenerateRandomePhoneNumber;
 
 
@@ -17,7 +18,7 @@ public class ActionRunner {
 
         try(Runner runner = new Runner(devToken, driverSettings)){
 
-            GenerateRandomePhoneNumber addon = new GenerateRandomePhoneNumber();
+            Delete_Devices addon = new Delete_Devices();
 
             AndroidDriver driver = runner.getDriver(addon);
 

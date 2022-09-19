@@ -1,5 +1,6 @@
 package main.Addon;
 
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.android.AndroidElement;
 import io.testproject.java.annotations.v2.Action;
 import io.testproject.java.annotations.v2.Parameter;
@@ -11,6 +12,7 @@ import io.testproject.java.sdk.v2.addons.helpers.AndroidAddonHelper;
 import io.testproject.java.sdk.v2.drivers.AndroidDriver;
 import io.testproject.java.sdk.v2.enums.ExecutionResult;
 import io.testproject.java.sdk.v2.exceptions.FailureException;
+import io.testproject.java.sdk.v2.reporters.ActionReporter;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -24,6 +26,8 @@ import java.util.List;
 public class Delete_Devices implements AndroidAction {
     Methods method = new Methods();
 
+    SpecificMethod specificMethod = new SpecificMethod();
+
     @Parameter(direction = ParameterDirection.INPUT)
     public String VERIFICA_IDENTITA;
 
@@ -31,54 +35,138 @@ public class Delete_Devices implements AndroidAction {
     public String ICONA_TRASH;
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String CONFERMA_ELIMINA;
+    public String CONFERMA_ElIMINA;
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String ALTRI_DISPOSITIVI;
-
-    @Parameter(direction = ParameterDirection.INPUT)
-    public String URI;
+    public String URL;
 
     @Parameter(direction = ParameterDirection.INPUT)
     public String email;
 
-    @Parameter(direction = ParameterDirection.INPUT)
-    public String element;
+//    @Parameter(direction = ParameterDirection.INPUT)
+//    public String CONFERMA_OTP;
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String CONFERMA_OTP;
+    public String SCEGLIENE_UNO;
+
+    @Parameter(direction = ParameterDirection.INPUT)
+    public String SELEZIONA_NUMERO;
+
+    @Parameter(direction = ParameterDirection.INPUT)
+    public String BOTTONE_CONTINUA;
+
+    @Parameter(direction = ParameterDirection.INPUT)
+    public String VEDI_DISPOSITIVI;
+
+    //Parte OTP_Insert
+    @Parameter(direction = ParameterDirection.INPUT)
+    public String INSERT_1;
+
+    @Parameter(direction = ParameterDirection.INPUT)
+    public String INSERT_2;
+
+    @Parameter(direction = ParameterDirection.INPUT)
+    public String INSERT_3;
+
+    @Parameter(direction = ParameterDirection.INPUT)
+    public String INSERT_4;
+
+    @Parameter(direction = ParameterDirection.INPUT)
+    public String INSERT_5;
+
+    @Parameter(direction = ParameterDirection.INPUT)
+    public String INSERT_6;
+
+    @Parameter(direction = ParameterDirection.INPUT)
+    public String ICONA_TRASH_PRINCIPALE;
 
     @Override
     public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
         AndroidDriver driver = helper.getDriver();
+        ActionReporter report = helper.getReporter();
+
+
         //usa findElementsBy che ritorna al più una LISTA VUOTA, quindi di size = 0
         //così se non trova elementi non va in eccezione, all'ultimo step
-        //
-        while((driver.findElementsByXPath(ICONA_TRASH)).size()>0) {
-            Assert.assertTrue(method.waitElement(helper,By.xpath(ICONA_TRASH) ,10));
-            driver.findElementByXPath(ICONA_TRASH).click();
-            helper.getReporter().result("L'icona " + ICONA_TRASH + " è stata cliccata.");
-            driver.findElementByXPath(CONFERMA_ELIMINA).click();
-            Assert.assertTrue(method.waitElement(helper,By.xpath(VERIFICA_IDENTITA),10));
-            String OTP = "";
+        AndroidElement elementDispositivi = (AndroidElement) driver.findElement(By.xpath("//*[contains(@text,'device')]"));
+        String SNDispositivi = elementDispositivi.getText();
+        String URI = URL + email;
+        String[] array = SNDispositivi.split("(?<=\\G.{1})");
+        int NDispositivi = Integer.parseInt(array[0]);
+        elementDispositivi.click();
+
+            String [] array_otp = {"1","2","3","4","5","6"};
+
+      //  String[] array_otp = new String[0];
+        for (int i = 0; i < NDispositivi; i++) {
+            String element = ICONA_TRASH;
             try {
-                OTP = method.restOTP(URI+email);
-            } catch (IOException e) {
-                e.printStackTrace();
+                if (driver.findElement(By.xpath(element)).isDisplayed() == false) {
+                    System.out.println("ERrror!!!");
+                }
+            } catch (Exception e) {
+                System.out.println("Device Secondari non trovati!!!, operazione Skippata");
+                break;
             }
-            helper.getReporter().result("L'OTP corrente è " + OTP);
-            method.insertValueByClassName(helper, OTP, element);
 
-            driver.findElementByXPath(CONFERMA_OTP).click();
+            driver.findElement(By.xpath(element)).click();
+            driver.findElement(By.xpath(CONFERMA_ElIMINA)).click();
+            //metodo scegliene uno
+            specificMethod.manageScreenSceglieneUno(driver, SCEGLIENE_UNO, SELEZIONA_NUMERO, BOTTONE_CONTINUA);
 
-            //new OTP_Insert().execute(helper);
+            Assert.assertTrue(method.waitElement(helper, By.xpath(VERIFICA_IDENTITA), 10));
+            array_otp = specificMethod.getFinalOtp(URI);
 
-            driver.findElementByXPath(ALTRI_DISPOSITIVI).click();
+            specificMethod.manageOtpForSomeAction(driver,
+                    helper,
+                    INSERT_1,
+                    INSERT_2,
+                    INSERT_3,
+                    INSERT_4,
+                    INSERT_5,
+                    INSERT_6,
+                    array_otp);
 
-            //i++;
 
-
+            driver.findElement(By.xpath(CONFERMA_ElIMINA)).click();
+            Assert.assertTrue(method.waitElement(helper, By.xpath(VEDI_DISPOSITIVI), 10));
+            driver.findElement(By.xpath(VEDI_DISPOSITIVI)).click();
         }
+
+
+        //elimina device principale
+        //DECOMMENTAREEEEEEEEEEEEEEEEEEE
+             driver.findElement(By.xpath(ICONA_TRASH_PRINCIPALE)).click();
+             driver.findElement(By.xpath(CONFERMA_ElIMINA)).click();
+             Assert.assertTrue(method.waitElement(helper,By.xpath(VERIFICA_IDENTITA),10));
+
+
+        //metodo scegliene uno
+        specificMethod.manageScreenSceglieneUno(driver, SCEGLIENE_UNO, SELEZIONA_NUMERO, BOTTONE_CONTINUA);
+
+
+        //DECOMMENTAREEEEEEEEEEEEEEEEEEE
+        Assert.assertTrue(method.waitElement(helper,By.xpath(VERIFICA_IDENTITA),10));
+
+
+        //metodo otp
+        array_otp = specificMethod.getFinalOtp(URI);
+
+
+        specificMethod.manageOtpForSomeAction(driver,
+                helper,
+                INSERT_1,
+                INSERT_2,
+                INSERT_3,
+                INSERT_4,
+                INSERT_5,
+                INSERT_6,
+                array_otp);
+
+        driver.findElement(By.xpath(CONFERMA_ElIMINA)).click();
+
+
+        report.result("DIspostivi Correttamente Eliminati!");
         return ExecutionResult.PASSED;
     }
 
