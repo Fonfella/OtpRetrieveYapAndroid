@@ -14,7 +14,7 @@ import javax.mail.Flags.Flag;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.search.FlagTerm;
 
-@Action(name="Android Check mail Ricevuta")
+@Action(name="MPOS Android Check mail Ricevuta")
 public class AndroidCheckMailRicevuta implements AndroidAction {
     //decommentare prima di push addon
     @Parameter(defaultValue = "")
