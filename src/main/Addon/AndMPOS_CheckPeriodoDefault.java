@@ -27,7 +27,7 @@ public class AndMPOS_CheckPeriodoDefault implements AndroidAction {
     @Parameter(defaultValue = "")
     public String secondoPeriodo; //GET TEXT ELEMENTO NEI FILTRI CAMPO FINE
 
-    @Parameter(direction = ParameterDirection.INPUT)
+    @Parameter(direction = ParameterDirection.OUTPUT)
     public String periodoDaVerificare;
 
 

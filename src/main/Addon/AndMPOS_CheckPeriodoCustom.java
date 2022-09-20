@@ -29,25 +29,16 @@ public class AndMPOS_CheckPeriodoCustom implements AndroidAction {
     @Override
     public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
         AndroidDriver driver = helper.getDriver();
-        // Get report object
         ActionReporter report = helper.getReporter();
-        //DOM 21 AGO '22 inputParameter_1
-        //MAR 20 SET '22 inputParameter_2
-  //      String string = methods.getCorretFormat(primoPeriodo);
 
         String [] array = GetCurrenteDate.split("[.]");
         String meseDiRifemento = array[1];
         int meseDiRifementoNUM = Integer.parseInt(meseDiRifemento);
 
-       // int unMesePrimaRiremento = meseDiRifementoNUM - 1;
-
         String periodoIniziale = primoPeriodo_Giorno+"."+String.valueOf(meseDiRifementoNUM)+"."+array[2];
-
-
 
        // String string1 = string.replaceAll("[A-Z][a-z]+", String.valueOf(unMesePrimaRiremento));
         periodoDaVerificare = periodoIniziale +" - "+GetCurrenteDate;
-
 
         driver.findElement(By.id("it.nexi.mpos:id/2131362209")).click();
         driver.findElement(By.xpath("//*[@text='1']")).click();
