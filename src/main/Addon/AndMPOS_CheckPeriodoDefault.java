@@ -16,16 +16,16 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.search.FlagTerm;
 import java.util.Properties;
 
-@Action(name="MPOS Android Check PeriodoSelezonato Default")
+@Action(name="MPOS Android Check PeriodoSelezionato Default")
 public class AndMPOS_CheckPeriodoDefault implements AndroidAction {
     //decommentare prima di push addon
     Methods methods = new Methods();
 
     @Parameter(defaultValue = "")
-    public String primoPeriodo;
+    public String primoPeriodo; //GET TEXT ELEMENTO NEI FILTRI CAMPO INIZIO
 
     @Parameter(defaultValue = "")
-    public String secondoPeriodo;
+    public String secondoPeriodo; //GET TEXT ELEMENTO NEI FILTRI CAMPO FINE
 
     @Parameter(direction = ParameterDirection.INPUT)
     public String periodoDaVerificare;
