@@ -17,10 +17,10 @@ public class AndMPOS_CheckPeriodoCustom implements AndroidAction {
     Methods methods = new Methods();
 
     @Parameter(defaultValue = "")
-    public String primoPeriodo_Giorno;
+    public String giornoDiRiferimentoPeriodo = "5";
 
     @Parameter(defaultValue = "")
-    public String GetCurrenteDate;
+    public String GetCurrenteDate= "21.9.2022";
 
     @Parameter(direction = ParameterDirection.OUTPUT)
     public String periodoDaVerificare;
@@ -33,21 +33,27 @@ public class AndMPOS_CheckPeriodoCustom implements AndroidAction {
 
         String [] array = GetCurrenteDate.split("[.]");
         String meseDiRifemento = array[1];
-        int meseDiRifementoNUM = Integer.parseInt(meseDiRifemento);
 
-        String periodoIniziale = primoPeriodo_Giorno+"."+String.valueOf(meseDiRifementoNUM)+"."+array[2];
+        //return meseDiriferimento
+        String periodoIniziale = giornoDiRiferimentoPeriodo+"."+ meseDiRifemento +"."+array[2];
 
-       // String string1 = string.replaceAll("[A-Z][a-z]+", String.valueOf(unMesePrimaRiremento));
         periodoDaVerificare = periodoIniziale +" - "+GetCurrenteDate;
 
+        //clicco sul bottone INIZIO
         driver.findElement(By.id("it.nexi.mpos:id/2131362209")).click();
-        driver.findElement(By.xpath("//*[@text='1']")).click();
 
-        String xpathSecondoGiorno = "//*[@text='sost']";
-        String xpath = xpathSecondoGiorno.replaceAll("sost", array[0]);
-        driver.findElement(By.xpath(xpath)).click();
+        //seleziono e clicco primo giorno
+        String xpathGiornoUno = methods.createXpathGiornoDaSelezionare(giornoDiRiferimentoPeriodo);
+        driver.findElement(By.xpath(xpathGiornoUno)).click();
+
+        //seleziono e clicco secondo giorno
+        String xpathSecondoGiorno = methods.createXpathGiornoDaSelezionare(array[0]);
+        driver.findElement(By.xpath(xpathSecondoGiorno)).click();
+
+        //click ok button
         driver.findElement(By.id("it.nexi.mpos:id/2131362244")).click();
 
+        //stampo nel report il periodo selezionato da verificare
         report.result("periodoDaVerificare = " +periodoDaVerificare);
         return ExecutionResult.PASSED;
     }
