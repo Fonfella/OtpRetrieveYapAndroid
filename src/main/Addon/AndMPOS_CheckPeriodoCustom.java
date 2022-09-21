@@ -17,10 +17,10 @@ public class AndMPOS_CheckPeriodoCustom implements AndroidAction {
     Methods methods = new Methods();
 
     @Parameter(defaultValue = "")
-    public String giornoDiRiferimentoPeriodo = "5";
+    public String giornoDiRiferimentoPeriodo;
 
     @Parameter(defaultValue = "")
-    public String GetCurrenteDate= "21.9.2022";
+    public String GetCurrenteDate;
 
     @Parameter(direction = ParameterDirection.OUTPUT)
     public String periodoDaVerificare;
