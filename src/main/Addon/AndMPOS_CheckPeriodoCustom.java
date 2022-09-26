@@ -26,6 +26,7 @@ public class AndMPOS_CheckPeriodoCustom implements AndroidAction {
     public String periodoDaVerificare;
 
 
+
     @Override
     public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
         AndroidDriver driver = helper.getDriver();
