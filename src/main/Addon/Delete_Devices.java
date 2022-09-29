@@ -2,6 +2,7 @@ package main.Addon;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.AndroidKeyCode;
 import io.testproject.java.annotations.v2.Action;
 import io.testproject.java.annotations.v2.Parameter;
 import io.testproject.java.enums.ParameterDirection;
@@ -80,11 +81,17 @@ public class Delete_Devices implements AndroidAction {
     @Parameter(direction = ParameterDirection.INPUT)
     public String ICONA_TRASH_PRINCIPALE;
 
+    //parametri setup dispositivo in uso
+    @Parameter(direction = ParameterDirection.INPUT)
+    public String SCEGLINE_UN_ALTRO;
+
+    @Parameter(direction = ParameterDirection.INPUT)
+    public String DISPOSITIVO_IN_USO;
+
     @Override
     public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
         AndroidDriver driver = helper.getDriver();
         ActionReporter report = helper.getReporter();
-
 
         //usa findElementsBy che ritorna al più una LISTA VUOTA, quindi di size = 0
         //così se non trova elementi non va in eccezione, all'ultimo step
@@ -94,8 +101,41 @@ public class Delete_Devices implements AndroidAction {
         String[] array = SNDispositivi.split("(?<=\\G.{1})");
         int NDispositivi = Integer.parseInt(array[0]);
         elementDispositivi.click();
+        driver.findElement(By.xpath(SCEGLINE_UN_ALTRO)).click();
+        String [] array_otp = {"1","2","3","4","5","6"};
+        //aggiunta selezione dispositivo in uso
+        try {
+            if (driver.findElement(By.xpath(DISPOSITIVO_IN_USO)).isDisplayed()) {
 
-            String [] array_otp = {"1","2","3","4","5","6"};
+                driver.findElement(By.xpath(DISPOSITIVO_IN_USO)).click();
+                driver.findElement(By.xpath(CONFERMA_ElIMINA)).click();
+
+                specificMethod.manageScreenSceglieneUno(driver, SCEGLIENE_UNO, SELEZIONA_NUMERO, BOTTONE_CONTINUA);
+
+                Assert.assertTrue(method.waitElement(helper, By.xpath(VERIFICA_IDENTITA), 10));
+                array_otp = specificMethod.getFinalOtp(URI);
+
+                specificMethod.manageOtpForSomeAction(driver,
+                        helper,
+                        INSERT_1,
+                        INSERT_2,
+                        INSERT_3,
+                        INSERT_4,
+                        INSERT_5,
+                        INSERT_6,
+                        array_otp);
+
+                driver.findElement(By.xpath(CONFERMA_ElIMINA)).click();
+                Assert.assertTrue(method.waitElement(helper, By.xpath(VEDI_DISPOSITIVI), 10));
+                driver.findElement(By.xpath(VEDI_DISPOSITIVI)).click();
+            }
+
+        } catch (Exception e) {
+            System.out.println("Dispositivo principale in uso!!!SKIPPING");
+        }
+
+        driver.pressKeyCode(AndroidKeyCode.BACK);
+
 
       //  String[] array_otp = new String[0];
         for (int i = 0; i < NDispositivi; i++) {
