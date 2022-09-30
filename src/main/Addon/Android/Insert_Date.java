@@ -1,4 +1,4 @@
-package main.Addon;
+package main.Addon.Android;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
@@ -10,6 +10,7 @@ import io.testproject.java.sdk.v2.addons.helpers.AndroidAddonHelper;
 import io.testproject.java.sdk.v2.drivers.AndroidDriver;
 import io.testproject.java.sdk.v2.enums.ExecutionResult;
 import io.testproject.java.sdk.v2.exceptions.FailureException;
+import main.Addon.Methods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.InvalidSelectorException;
 import org.openqa.selenium.WebElement;

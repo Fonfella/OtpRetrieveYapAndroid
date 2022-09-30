@@ -1,4 +1,4 @@
-package main.Addon;
+package main.Addon.Android;
 
 import io.testproject.java.annotations.v2.Action;
 import io.testproject.java.annotations.v2.Parameter;
@@ -8,6 +8,7 @@ import io.testproject.java.sdk.v2.addons.helpers.AndroidAddonHelper;
 import io.testproject.java.sdk.v2.enums.ExecutionResult;
 import io.testproject.java.sdk.v2.exceptions.FailureException;
 import io.testproject.java.sdk.v2.reporters.ActionReporter;
+import main.Addon.Methods;
 
 import java.util.Random;
 

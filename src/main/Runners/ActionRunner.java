@@ -4,8 +4,8 @@ import io.appium.java_client.android.AndroidDriver;
 import io.testproject.java.classes.DriverSettings;
 import io.testproject.java.enums.DriverType;
 import io.testproject.java.sdk.v2.Runner;
-import main.Addon.Delete_Devices;
-import main.Addon.GenerateRandomePhoneNumber;
+import main.Addon.Android.Delete_Devices;
+import main.Addon.Android.AndroidRecuperoOtpNP;
 
 
 public class ActionRunner {
