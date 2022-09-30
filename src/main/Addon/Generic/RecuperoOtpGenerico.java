@@ -48,7 +48,7 @@ public class RecuperoOtpGenerico implements GenericAction {
         OTP_5 = array_otp[4];
         OTP_6 = array_otp[5];
 
-        report.result("COdice OTP trovato: " + OTP_1 + OTP_2 + OTP_3 + OTP_4 + OTP_5 + OTP_6);
+        report.result("Codice OTP trovato: " + OTP_1 + OTP_2 + OTP_3 + OTP_4 + OTP_5 + OTP_6);
         return ExecutionResult.PASSED;
     }
 }
