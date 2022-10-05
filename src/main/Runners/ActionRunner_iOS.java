@@ -7,6 +7,7 @@ import io.testproject.java.sdk.v2.Runner;
 import io.testproject.java.sdk.v2.drivers.IOSDriver;
 import io.testproject.java.sdk.v2.internal.GenericCodeBlock;
 import main.Addon.iOS.NPOtpRetrieveIos;
+import main.Addon.iOS.NP_GestionePOPUP;
 
 
 public class ActionRunner_iOS {
@@ -28,12 +29,12 @@ public class ActionRunner_iOS {
         driver = runner.getDriver();
         //   try(Runner runner = new Runner(devToken, driverSettings)){
 
-        NPOtpRetrieveIos addoniOS = new NPOtpRetrieveIos();
+        NP_GestionePOPUP addoniOS = new NP_GestionePOPUP();
 
         IOSDriver driver = runner.getDriver();
 
         //Click all the menu items of the menu
-        runner.run((GenericCodeBlock) addoniOS);
+        runner.run(addoniOS);
 
     }
 }
