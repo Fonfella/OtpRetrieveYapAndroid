@@ -63,29 +63,29 @@ public class Delete_Devices implements AndroidAction {
 
     //Parte OTP_Insert
     @Parameter(direction = ParameterDirection.INPUT)
-    public String INSERT_1="//android.widget.RelativeLayout[1]/android.widget.RelativeLayout[1]/android.widget.FrameLayout//android.widget.EditText";
+    public String INSERT_1 = "//android.widget.RelativeLayout[1]/android.widget.RelativeLayout[1]/android.widget.FrameLayout//android.widget.EditText";
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String INSERT_2="//android.widget.RelativeLayout[2]/android.widget.RelativeLayout//android.widget.EditText";
+    public String INSERT_2 = "//android.widget.RelativeLayout[2]/android.widget.RelativeLayout//android.widget.EditText";
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String INSERT_3="//android.widget.RelativeLayout[3]//android.widget.EditText";
+    public String INSERT_3 = "//android.widget.RelativeLayout[3]//android.widget.EditText";
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String INSERT_4="//android.widget.RelativeLayout[4]//android.widget.EditText";
+    public String INSERT_4 = "//android.widget.RelativeLayout[4]//android.widget.EditText";
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String INSERT_5="//android.widget.RelativeLayout[5]//android.widget.EditText";
+    public String INSERT_5 = "//android.widget.RelativeLayout[5]//android.widget.EditText";
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String INSERT_6="//android.widget.RelativeLayout[6]//android.widget.EditText";
+    public String INSERT_6 = "//android.widget.RelativeLayout[6]//android.widget.EditText";
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String ICONA_TRASH_PRINCIPALE="//android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.ImageView";
+    public String ICONA_TRASH_PRINCIPALE = "//android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.ImageView";
 
     //parametri setup dispositivo in uso
     @Parameter(direction = ParameterDirection.INPUT)
-    public String SCEGLINE_UN_ALTRO="//android.widget.TextView[@content-desc = 'SCEGLINE UN ALTRO button']";
+    public String SCEGLINE_UN_ALTRO = "//android.widget.TextView[@content-desc = 'SCEGLINE UN ALTRO button']";
 
     @Parameter(direction = ParameterDirection.INPUT)
     public String DISPOSITIVO_IN_USO;
@@ -157,7 +157,7 @@ public class Delete_Devices implements AndroidAction {
                         String element = ICONA_TRASH;
                         try {
                             if (driver.findElement(By.xpath(element)).isDisplayed() == false) {
-                                System.out.println("ERrror!!!");
+                                System.out.println("Error!!!");
                             }
                         } catch (Exception e) {
                             System.out.println("Device Secondari non trovati!!!, operazione Skippata");
