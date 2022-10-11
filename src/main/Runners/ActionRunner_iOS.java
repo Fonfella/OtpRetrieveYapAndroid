@@ -5,9 +5,8 @@ import io.testproject.java.enums.DriverType;
 import io.testproject.java.sdk.v2.Runner;
 
 import io.testproject.java.sdk.v2.drivers.IOSDriver;
-import io.testproject.java.sdk.v2.internal.GenericCodeBlock;
-import main.Addon.iOS.NPOtpRetrieveIos;
-import main.Addon.iOS.NP_GestionePOPUP;
+import main.Addon.ios.NP_GestionePOPUP;
+import main.Addon.ios.NP_ScrollElementToDirection;
 
 
 public class ActionRunner_iOS {
