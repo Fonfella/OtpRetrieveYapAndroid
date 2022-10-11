@@ -1,4 +1,4 @@
-package main.Addon;
+package main.iOS;
 
 
 import io.appium.java_client.android.AndroidDriver;

@@ -25,7 +25,14 @@ public class AndMPOS_CheckPeriodoCustom implements AndroidAction {
     @Parameter(direction = ParameterDirection.OUTPUT)
     public String periodoDaVerificare;
 
+    @Parameter(direction = ParameterDirection.OUTPUT)
+    public String periodoDaVerificareLettere;
 
+    @Parameter(defaultValue = "")
+    public String bottoneInizioXpath;
+
+    @Parameter(defaultValue = "")
+    public String bottoneOkXpath;
 
     @Override
     public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
@@ -35,13 +42,20 @@ public class AndMPOS_CheckPeriodoCustom implements AndroidAction {
         String [] array = GetCurrenteDate.split("[.]");
         String meseDiRifemento = array[1];
 
+        //metodo per sapere mese in lettere
+        String meseInLettere = methods.getMeseInLettere(meseDiRifemento);
+
         //return meseDiriferimento
         String periodoIniziale = giornoDiRiferimentoPeriodo+"."+ meseDiRifemento +"."+array[2];
 
         periodoDaVerificare = periodoIniziale +" - "+GetCurrenteDate;
 
+        //preparazione format string to check
+        String prep = periodoDaVerificare.replaceAll(meseDiRifemento, meseInLettere);
+        periodoDaVerificareLettere = prep.replaceAll("\\.", " ");
+
         //clicco sul bottone INIZIO
-        driver.findElement(By.id("it.nexi.mpos:id/2131362209")).click();
+        driver.findElement(By.xpath(bottoneInizioXpath)).click();
 
         //seleziono e clicco primo giorno
         String xpathGiornoUno = methods.createXpathGiornoDaSelezionare(giornoDiRiferimentoPeriodo);
@@ -52,10 +66,11 @@ public class AndMPOS_CheckPeriodoCustom implements AndroidAction {
         driver.findElement(By.xpath(xpathSecondoGiorno)).click();
 
         //click ok button
-        driver.findElement(By.id("it.nexi.mpos:id/2131362244")).click();
+        driver.findElement(By.xpath(bottoneOkXpath)).click();
 
         //stampo nel report il periodo selezionato da verificare
         report.result("periodoDaVerificare = " +periodoDaVerificare);
+        report.result("Mese lettere = "+periodoDaVerificareLettere);
         return ExecutionResult.PASSED;
     }
 }
