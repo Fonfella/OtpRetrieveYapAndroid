@@ -6,6 +6,7 @@ import io.testproject.java.enums.DriverType;
 import io.testproject.java.sdk.v2.Runner;
 import main.Addon.Android.Delete_Devices;
 import main.Addon.Android.AndroidRecuperoOtpNP;
+import main.Addon.Android.GrantManage;
 
 
 public class ActionRunner {
@@ -18,7 +19,7 @@ public class ActionRunner {
 
         try(Runner runner = new Runner(devToken, driverSettings)){
 
-            Delete_Devices addon = new Delete_Devices();
+            GrantManage addon = new GrantManage();
 
             AndroidDriver driver = runner.getDriver(addon);
 
