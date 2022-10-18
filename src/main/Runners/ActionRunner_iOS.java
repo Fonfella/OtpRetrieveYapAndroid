@@ -5,8 +5,7 @@ import io.testproject.java.enums.DriverType;
 import io.testproject.java.sdk.v2.Runner;
 
 import io.testproject.java.sdk.v2.drivers.IOSDriver;
-import main.Addon.ios.NP_GestionePOPUP;
-import main.Addon.ios.NP_ScrollElementToDirection;
+import main.Addon.ios.GrantManageiOS;
 
 
 public class ActionRunner_iOS {
@@ -28,7 +27,7 @@ public class ActionRunner_iOS {
         driver = runner.getDriver();
         //   try(Runner runner = new Runner(devToken, driverSettings)){
 
-        NP_GestionePOPUP addoniOS = new NP_GestionePOPUP();
+        GrantManageiOS addoniOS = new GrantManageiOS();
 
         IOSDriver driver = runner.getDriver();
 
