@@ -79,9 +79,6 @@ public class SpecificMethod {
         return array_otp;
     }
 
-
-
-
     public String getToken () {
         TrustManager[] trustAllCerts = new TrustManager[]{
                 new X509TrustManager() {
@@ -113,9 +110,7 @@ public class SpecificMethod {
             throw new RuntimeException(e);
         }
 
-
         OkHttpClient.Builder newBuilder = new OkHttpClient.Builder();
-
         newBuilder.sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) trustAllCerts[0]);
         newBuilder.hostnameVerifier((hostname, session) -> true);
 
@@ -184,8 +179,6 @@ public class SpecificMethod {
         } catch (KeyManagementException e) {
             throw new RuntimeException(e);
         }
-
-
 
         OkHttpClient.Builder newBuilder = new OkHttpClient.Builder();
         newBuilder.sslSocketFactory(sslContext.getSocketFactory(), (X509TrustManager) trustAllCerts[0]);

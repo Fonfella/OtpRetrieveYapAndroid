@@ -9,6 +9,7 @@ import main.Addon.Android.AndroidRecuperoOtpNP;
 import main.Addon.Android.GrantManage;
 
 
+import main.Addon.Android.InsertKeySix;
 import main.Addon.Generic.ChangePassword_NP;
 import main.Addon.Generic.SettingPathLocation;
 
@@ -23,7 +24,7 @@ public class ActionRunner {
 
         try(Runner runner = new Runner(devToken, driverSettings)){
 
-            GrantManage addon = new GrantManage();
+            InsertKeySix addon = new InsertKeySix();
 
             AndroidDriver driver = runner.getDriver(addon);
 
