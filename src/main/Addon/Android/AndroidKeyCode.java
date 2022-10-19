@@ -27,13 +27,13 @@ public class AndroidKeyCode implements AndroidAction {
 
         switch (action) {
             case "back":
-                driver.navigate().back();
+                driver.pressKeyCode(io.appium.java_client.android.AndroidKeyCode.BACK);
                 break;
             case "enter":
-                driver.pressKey(new KeyEvent(AndroidKey.ENTER));
+                driver.pressKeyCode(io.appium.java_client.android.AndroidKeyCode.ENTER);
                 break;
             case "home":
-                driver.pressKey(new KeyEvent(AndroidKey.HOME));
+                driver.pressKeyCode(io.appium.java_client.android.AndroidKeyCode.HOME);
                 break;
         }
 
