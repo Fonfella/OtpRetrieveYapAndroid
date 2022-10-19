@@ -4,12 +4,9 @@ import io.appium.java_client.android.AndroidDriver;
 import io.testproject.java.classes.DriverSettings;
 import io.testproject.java.enums.DriverType;
 import io.testproject.java.sdk.v2.Runner;
-import main.Addon.Android.Delete_Devices;
-import main.Addon.Android.AndroidRecuperoOtpNP;
-import main.Addon.Android.GrantManage;
+import main.Addon.Android.*;
 
 
-import main.Addon.Android.InsertKeySix;
 import main.Addon.Generic.ChangePassword_NP;
 import main.Addon.Generic.SettingPathLocation;
 
@@ -24,7 +21,7 @@ public class ActionRunner {
 
         try(Runner runner = new Runner(devToken, driverSettings)){
 
-            InsertKeySix addon = new InsertKeySix();
+            AndroidKeyCode addon = new AndroidKeyCode();
 
             AndroidDriver driver = runner.getDriver(addon);
 
