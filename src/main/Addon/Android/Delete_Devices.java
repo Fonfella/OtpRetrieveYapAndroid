@@ -32,60 +32,57 @@ public class Delete_Devices implements AndroidAction {
     SpecificMethod specificMethod = new SpecificMethod();
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String VERIFICA_IDENTITA= "//android.widget.TextView[@text = concat('VERIFICA D', \"'\", 'IDENTITÀ')]";
+    public String VERIFICA_IDENTITA;
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String ICONA_TRASH = "//android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.ImageView";
+    public String ICONA_TRASH;
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String CONFERMA_ElIMINA = "//android.widget.Button[@text = 'CONFERMA']";
+    public String CONFERMA_ElIMINA;
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String URL="https://stgapi.nexi.it/mfa/getlastotp?user=";
+    public String URL;
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String email="carta.excellence@yopmail.com";
-
-//    @Parameter(direction = ParameterDirection.INPUT)
-//    public String CONFERMA_OTP;
+    public String email;
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String SCEGLIENE_UNO = "//android.widget.TextView[@text = 'Scegline uno']";
+    public String SCEGLIENE_UNO;
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String SELEZIONA_NUMERO = "//android.widget.TextView[@text = '********00']";
+    public String SELEZIONA_NUMERO;
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String BOTTONE_CONTINUA= "//android.widget.Button[@content-desc = 'CONTINUA']";
+    public String BOTTONE_CONTINUA;
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String VEDI_DISPOSITIVI= "//android.widget.TextView[@text = 'VEDI DISPOSITIVI']";
+    public String VEDI_DISPOSITIVI;
 
     //Parte OTP_Insert
     @Parameter(direction = ParameterDirection.INPUT)
-    public String INSERT_1 = "//android.widget.RelativeLayout[1]/android.widget.RelativeLayout[1]/android.widget.FrameLayout//android.widget.EditText";
+    public String INSERT_1;
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String INSERT_2 = "//android.widget.RelativeLayout[2]/android.widget.RelativeLayout//android.widget.EditText";
+    public String INSERT_2;
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String INSERT_3 = "//android.widget.RelativeLayout[3]//android.widget.EditText";
+    public String INSERT_3;
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String INSERT_4 = "//android.widget.RelativeLayout[4]//android.widget.EditText";
+    public String INSERT_4;
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String INSERT_5 = "//android.widget.RelativeLayout[5]//android.widget.EditText";
+    public String INSERT_5;
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String INSERT_6 = "//android.widget.RelativeLayout[6]//android.widget.EditText";
+    public String INSERT_6;
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String ICONA_TRASH_PRINCIPALE = "//android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.ImageView";
+    public String ICONA_TRASH_PRINCIPALE;
 
     //parametri setup dispositivo in uso
     @Parameter(direction = ParameterDirection.INPUT)
-    public String SCEGLINE_UN_ALTRO = "//android.widget.TextView[@content-desc = 'SCEGLINE UN ALTRO button']";
+    public String SCEGLINE_UN_ALTRO;
 
     @Parameter(direction = ParameterDirection.INPUT)
     public String DISPOSITIVO_IN_USO;
@@ -164,6 +161,11 @@ public class Delete_Devices implements AndroidAction {
                             break;
                         }
 
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                         driver.findElement(By.xpath(element)).click();
 
                         driver.findElement(By.xpath(CONFERMA_ElIMINA)).click();
@@ -192,7 +194,12 @@ public class Delete_Devices implements AndroidAction {
 
         //elimina device principale
         //DECOMMENTAREEEEEEEEEEEEEEEEEEE
-         Assert.assertTrue(method.waitElement(helper, By.xpath(ICONA_TRASH_PRINCIPALE), 10));
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        Assert.assertTrue(method.waitElement(helper, By.xpath(ICONA_TRASH_PRINCIPALE), 20));
          driver.findElement(By.xpath(ICONA_TRASH_PRINCIPALE)).click();
         //parte verifica testo elimina principale
          driver.findElement(By.xpath(CONFERMA_ElIMINA)).click();

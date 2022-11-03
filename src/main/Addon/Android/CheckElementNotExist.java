@@ -1,6 +1,5 @@
 package main.Addon.Android;
 
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.testproject.java.annotations.v2.Action;
 import io.testproject.java.annotations.v2.Parameter;
@@ -10,40 +9,30 @@ import io.testproject.java.sdk.v2.addons.helpers.AndroidAddonHelper;
 import io.testproject.java.sdk.v2.enums.ExecutionResult;
 import io.testproject.java.sdk.v2.exceptions.FailureException;
 import io.testproject.java.sdk.v2.reporters.ActionReporter;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-@Action(name = "PopUpManager")
-public class GestionePopUpAndroid implements AndroidAction {
+@Action(name = "Check Element Not Exist")
+public class CheckElementNotExist implements AndroidAction {
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public String CheckPointElement;
+    public String element;
 
-    @Parameter(direction = ParameterDirection.INPUT)
-    public int numeroTentativi;
-
-    @Override
     public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
-
-        AndroidDriver driver = helper.getDriver();
         ActionReporter report = helper.getReporter();
-        boolean verify = false;
-        for(int i = 0; i < numeroTentativi; i++) {
-            try{
-                if(driver.findElement(By.xpath(CheckPointElement)).isDisplayed()){
-                    verify = true;
-                    report.result("Elemento Trovato!!!");
-                    break;
-                }
-            }catch (Exception e){
-               e.printStackTrace();
+        AndroidDriver driver = helper.getDriver();
+
+        boolean verify = true;
+        try {
+            if (driver.findElementByXPath(element).isDisplayed()) {
+                verify = false;
             }
-            driver.navigate().back();
+        } catch (Exception e)  {
+            e.printStackTrace();
         }
         if (verify == false){
-            report.result("PAGINA NON CARICATA!!!");
+            report.result("Elemento Trovato, KO!");
             return ExecutionResult.FAILED;
         }
+        report.result("Elemento NON Trovato, OK!");
         return ExecutionResult.PASSED;
     }
 }

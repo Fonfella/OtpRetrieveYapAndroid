@@ -24,11 +24,11 @@ public class NP_GestionePOPUP implements IOSAction {
 
     @Override
     public ExecutionResult execute(IOSAddonHelper helper) throws FailureException {
-        String a = "0";
-        String b = null;
 
         IOSDriver driver = helper.getDriver();
         ActionReporter report = helper.getReporter();
+
+        int numeroTentativi = repeatActionNumber -1;
 
         boolean verify = false;
         for(int i = 0; i < repeatActionNumber; i++) {
@@ -39,6 +39,16 @@ public class NP_GestionePOPUP implements IOSAction {
                     report.result("Elemento Trovato!!!");
                     break;
                 }
+                //da provare questa parte
+               if (i == numeroTentativi)  {
+                   if(driver.findElement(By.xpath("//*[@name='Non ora']")).isDisplayed()){
+                       driver.findElement(By.xpath("//*[@name='Non ora']")).click();
+                       driver.findElement(By.xpath(CheckPointElement)).isDisplayed();
+                       verify = true;
+                       report.result("Elemento Trovato!!!");
+                       break;
+                   }
+               }
             }catch (Exception e){
                 e.printStackTrace();
             }

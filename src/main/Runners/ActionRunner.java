@@ -21,7 +21,7 @@ public class ActionRunner {
 
         try(Runner runner = new Runner(devToken, driverSettings)){
 
-            AndroidKeyCode addon = new AndroidKeyCode();
+            NP_ScrollElementToDirection addon = new NP_ScrollElementToDirection();
 
             AndroidDriver driver = runner.getDriver(addon);
 
