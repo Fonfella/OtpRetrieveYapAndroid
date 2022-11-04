@@ -22,17 +22,18 @@ public class AndMPOS_CheckPeriodoCustom implements AndroidAction {
     @Parameter(defaultValue = "")
     public String GetCurrenteDate;
 
+    @Parameter(defaultValue = "")
+    public String bottoneInizioXpath;
+
+    @Parameter(defaultValue = "")
+    public String bottoneOkXpath;
+
     @Parameter(direction = ParameterDirection.OUTPUT)
     public String periodoDaVerificare;
 
     @Parameter(direction = ParameterDirection.OUTPUT)
     public String periodoDaVerificareLettere;
 
-    @Parameter(defaultValue = "")
-    public String bottoneInizioXpath;
-
-    @Parameter(defaultValue = "")
-    public String bottoneOkXpath;
 
     @Override
     public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
@@ -40,6 +41,14 @@ public class AndMPOS_CheckPeriodoCustom implements AndroidAction {
         ActionReporter report = helper.getReporter();
 
         String [] array = GetCurrenteDate.split("[.]");
+
+        //gestione giorno con 0 primo carattere
+        String giorno = array[0];
+        if (array[0].charAt(0) == '0' ) {
+            String [] val = array[0].split("0");
+            giorno = val[1];
+        }
+
         String meseDiRifemento = array[1];
 
         //metodo per sapere mese in lettere
@@ -47,8 +56,10 @@ public class AndMPOS_CheckPeriodoCustom implements AndroidAction {
 
         //return meseDiriferimento
         String periodoIniziale = giornoDiRiferimentoPeriodo+"."+ meseDiRifemento +"."+array[2];
+        String periodoSecondario = giorno +"."+ meseDiRifemento +"."+ array[2];
 
-        periodoDaVerificare = periodoIniziale +" - "+GetCurrenteDate;
+
+        periodoDaVerificare = periodoIniziale +" - "+periodoSecondario;
 
         //preparazione format string to check
         String prep = periodoDaVerificare.replaceAll(meseDiRifemento, meseInLettere);
@@ -62,7 +73,7 @@ public class AndMPOS_CheckPeriodoCustom implements AndroidAction {
         driver.findElement(By.xpath(xpathGiornoUno)).click();
 
         //seleziono e clicco secondo giorno
-        String xpathSecondoGiorno = methods.createXpathGiornoDaSelezionare(array[0]);
+        String xpathSecondoGiorno = methods.createXpathGiornoDaSelezionare(giorno);
         driver.findElement(By.xpath(xpathSecondoGiorno)).click();
 
         //click ok button

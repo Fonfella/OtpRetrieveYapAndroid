@@ -11,7 +11,21 @@ public class Methods {
         String [] arrayPerConversione = string1.split(" ");
         // capitalize first letter
         String Capitalize = arrayPerConversione[1].substring(0, 1).toUpperCase()+ arrayPerConversione[1].substring(1);
-        String finalFirst = arrayPerConversione[0]+" "+Capitalize+" "+arrayPerConversione[2];
+
+        String giorno = arrayPerConversione[0];
+
+//        if (arrayPerConversione[0].equals("0")) {
+//            String [] val = arrayPerConversione[0].split("0");
+//             giorno = val[1];
+//        }
+
+        if (arrayPerConversione[0].charAt(0) == '0' ) {
+            String [] val = arrayPerConversione[0].split("0");
+            giorno = val[1];
+        }
+
+
+        String finalFirst = giorno+" "+Capitalize+" "+arrayPerConversione[2];
         return finalFirst;
     }
 
