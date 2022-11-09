@@ -4,9 +4,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.testproject.java.classes.DriverSettings;
 import io.testproject.java.enums.DriverType;
 import io.testproject.java.sdk.v2.Runner;
-import main.Addon.AndMPOS_CheckPeriodoCustom;
-import main.Addon.AndMPOS_CheckPeriodoDefault;
-import main.Addon.AndroidCheckMailRicevuta;
+import main.Addon.*;
 
 
 public class ActionRunner {
@@ -19,13 +17,12 @@ public class ActionRunner {
 
         try(Runner runner = new Runner(devToken, driverSettings)){
 
-            AndMPOS_CheckPeriodoCustom addon = new AndMPOS_CheckPeriodoCustom();
+            SetupConfigurazioneBT_pos1 addon = new SetupConfigurazioneBT_pos1();
 
             AndroidDriver driver = runner.getDriver(addon);
 
             //Click all the menu items of the menu
             runner.run(addon);
-
         }
     }
 }

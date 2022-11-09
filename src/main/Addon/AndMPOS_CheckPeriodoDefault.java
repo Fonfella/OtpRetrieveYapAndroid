@@ -10,12 +10,6 @@ import io.testproject.java.sdk.v2.enums.ExecutionResult;
 import io.testproject.java.sdk.v2.exceptions.FailureException;
 import io.testproject.java.sdk.v2.reporters.ActionReporter;
 
-import javax.mail.*;
-import javax.mail.Flags.Flag;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.search.FlagTerm;
-import java.util.Properties;
-
 @Action(name="MPOS Android Check PeriodoSelezionato Default")
 public class AndMPOS_CheckPeriodoDefault implements AndroidAction {
     //decommentare prima di push addon

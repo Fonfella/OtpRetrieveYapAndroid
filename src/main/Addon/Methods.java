@@ -1,5 +1,15 @@
 package main.Addon;
 
+import io.testproject.java.sdk.v2.addons.helpers.AndroidAddonHelper;
+import io.testproject.java.sdk.v2.drivers.AndroidDriver;
+import okhttp3.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
 public class Methods {
 
 
@@ -27,6 +37,14 @@ public class Methods {
 
         String finalFirst = giorno+" "+Capitalize+" "+arrayPerConversione[2];
         return finalFirst;
+    }
+
+    public boolean waitElement (AndroidAddonHelper helper, By we, int time){
+        AndroidDriver driver = helper.getDriver();
+        WebDriverWait wait =new WebDriverWait(driver, time);
+
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(we)).isDisplayed();
+
     }
 
     public String getMeseInLettere (String meseNumero) {
@@ -77,6 +95,46 @@ public class Methods {
         String xpathFinale = xpath.replaceAll("sost", string);
         return xpathFinale;
     }
+
+
+    public String callFinger (String deviceName, String platformVersion, String udid, String address) throws IOException {
+        if (address == null) {
+            address = "http://localhost:8080/fingerBot";
+        } else {
+            address = "http://"+address+":8080/fingerBot";
+        }
+
+        String bodyFinger = "{\n" +
+                "    \"deviceName\": \""+deviceName+"\",\n" +
+                "    \"platformVersion\": \""+platformVersion+"\",\n" +
+                "    \"udid\": \""+udid+"\"\n" +
+                "}";
+
+        OkHttpClient newClient = new OkHttpClient().newBuilder()
+                .connectTimeout(40, TimeUnit.SECONDS)
+                .readTimeout(40, TimeUnit.SECONDS)
+                .writeTimeout(40, TimeUnit.SECONDS)
+                .build();
+
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(mediaType, bodyFinger);
+        Request request = new Request.Builder()
+                .url(address)
+                .method("POST", body)
+                .addHeader("Content-Type", "application/json")
+                .build();
+
+        String resStr;
+        try {
+            Response responseBody = newClient.newCall(request).execute();
+            resStr = responseBody.body().string();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return resStr;
+    }
 }
+
+
 
 
