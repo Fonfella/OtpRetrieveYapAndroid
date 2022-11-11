@@ -19,7 +19,7 @@ public class SetupConfigurazioneBT_pos1 implements AndroidAction {
     Play play = new Play();
 
     @Parameter(direction = ParameterDirection.INPUT)
-    public int times=3;
+    public int times;
 
 
     @Override

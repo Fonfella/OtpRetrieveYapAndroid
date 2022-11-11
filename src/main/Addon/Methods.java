@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class Methods {
 
 
-    public String getCorretFormat(String string) {
+    public String getCorretFormat(String string, String dataFormat) {
         String lower =  string.toLowerCase();
         String [] array_valore1;
         array_valore1 = lower.split("^.{0,3}");
@@ -28,11 +28,22 @@ public class Methods {
 //            String [] val = arrayPerConversione[0].split("0");
 //             giorno = val[1];
 //        }
+            if (dataFormat.equals("false")) {
+                if (arrayPerConversione[0].charAt(0) == '0' ) {
+                    String [] val = arrayPerConversione[0].split("0");
+                    giorno = val[1];
+                }
+            }
 
-        if (arrayPerConversione[0].charAt(0) == '0' ) {
-            String [] val = arrayPerConversione[0].split("0");
-            giorno = val[1];
+        int numero = Integer.valueOf(giorno);
+
+        if (dataFormat.equals("true")) {
+            if (numero < 10 ) {
+                String val1 = "0"+arrayPerConversione[0];
+                giorno = val1;
+            }
         }
+
 
 
         String finalFirst = giorno+" "+Capitalize+" "+arrayPerConversione[2];
