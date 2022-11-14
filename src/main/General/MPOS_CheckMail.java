@@ -1,21 +1,22 @@
-package main.Addon;
+package main.General;
 
-import io.appium.java_client.android.AndroidDriver;
 import io.testproject.java.annotations.v2.Action;
 import io.testproject.java.annotations.v2.Parameter;
-import io.testproject.java.sdk.v2.addons.AndroidAction;
-import io.testproject.java.sdk.v2.addons.helpers.AndroidAddonHelper;
+import io.testproject.java.enums.ParameterDirection;
+import io.testproject.java.sdk.v2.addons.GenericAction;
+import io.testproject.java.sdk.v2.addons.helpers.AddonHelper;
 import io.testproject.java.sdk.v2.enums.ExecutionResult;
 import io.testproject.java.sdk.v2.exceptions.FailureException;
 import io.testproject.java.sdk.v2.reporters.ActionReporter;
-import java.util.Properties;
+import main.Addon.Methods;
+
 import javax.mail.*;
-import javax.mail.Flags.Flag;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.search.FlagTerm;
+import java.util.Properties;
 
-@Action(name="MPOS Android Check mail Ricevuta")
-public class AndroidCheckMailRicevuta implements AndroidAction {
+@Action(name="MPOS Check mail Ricevuta")
+public class MPOS_CheckMail implements GenericAction {
     //decommentare prima di push addon
     @Parameter(defaultValue = "")
     public String user;
@@ -23,13 +24,14 @@ public class AndroidCheckMailRicevuta implements AndroidAction {
     @Parameter(defaultValue = "")
     public String password;
 
+
     @Override
-    public ExecutionResult execute(AndroidAddonHelper helper) throws FailureException {
+    public ExecutionResult execute(AddonHelper helper) throws FailureException {
+
 
         String a = "0";
         String b = null;
 
-        AndroidDriver driver = helper.getDriver();
         // Get report object
         ActionReporter report = helper.getReporter();
         String host = "imap.gmail.com";
@@ -61,12 +63,12 @@ public class AndroidCheckMailRicevuta implements AndroidAction {
             inbox.open(Folder.READ_WRITE);
 
             // retrieve the messages from the folder in an array and print it
-            javax.mail.Message[] messages = inbox.search(new FlagTerm(new Flags(Flag.SEEN), false));
+            javax.mail.Message[] messages = inbox.search(new FlagTerm(new Flags(Flags.Flag.SEEN), false));
             //     System.out.println("messages.length---" + messages.length);
             if (messages.length != 0) {
                 for (int i = 0, n = messages.length; i < n; i++) {
                     Message message = messages[i];
-                    message.setFlag(Flag.SEEN, true);
+                    message.setFlag(Flags.Flag.SEEN, true);
                     System.out.println("---------------------------------");
                     report.result("Email Number " + (i + 1));
                     report.result("Subject: " + message.getSubject());
@@ -123,5 +125,4 @@ public class AndroidCheckMailRicevuta implements AndroidAction {
         }
 
     }
-
 }

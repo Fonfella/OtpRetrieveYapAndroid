@@ -17,7 +17,7 @@ public class ActionRunner {
 
         try(Runner runner = new Runner(devToken, driverSettings)){
 
-            SetupConfigurazioneBT_pos1 addon = new SetupConfigurazioneBT_pos1();
+            GetSettingAppActivityAndroid addon = new GetSettingAppActivityAndroid();
 
             AndroidDriver driver = runner.getDriver(addon);
 
