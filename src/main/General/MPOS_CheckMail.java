@@ -38,8 +38,8 @@ public class MPOS_CheckMail implements GenericAction {
         String mailStoreType = "imaps";
 
         //commentare prima del push
-        String user = "nexi.mpos@gmail.com";
-        String password = "uytbzodjblpazcrx";
+//        String user = "nexi.mpos@gmail.com";
+//        String password = "uytbzodjblpazcrx";
 
         try {
             // create properties
