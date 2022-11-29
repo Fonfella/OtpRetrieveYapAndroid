@@ -50,6 +50,33 @@ public class Methods {
         return finalFirst;
     }
 
+
+    public String getCorretFormatiOS(String string, String dataFormat) {
+
+        String [] var = (string.split("\\."));
+        String giorno = var[0];
+        if (dataFormat.equals("false")) {
+            if (string.charAt(0) == '0' ) {
+                String [] val = string.split("0");
+                giorno = val[1];
+            }
+        }
+
+        int numero = Integer.valueOf(giorno);
+
+        if (dataFormat.equals("true")) {
+            if (numero < 10 ) {
+                String val1 = "0"+var[0];
+                giorno = val1;
+            }
+        }
+
+
+
+        String finalFirst = giorno+"."+var[1]+"."+var[2];
+        return finalFirst;
+    }
+
     public boolean waitElement (AndroidAddonHelper helper, By we, int time){
         AndroidDriver driver = helper.getDriver();
         WebDriverWait wait =new WebDriverWait(driver, time);
@@ -100,6 +127,52 @@ public class Methods {
         }
       return meseInLettere;
     }
+
+    public String getLongMeseInLettere (String meseNumero) {
+        String meseInLettere = null;
+        String Long_meseInLettere = null;
+        switch (meseNumero){
+            case "1":
+                Long_meseInLettere = "Gennaio";
+                break;
+            case "2":
+                Long_meseInLettere = "Febbraio";
+                break;
+            case "3":
+                Long_meseInLettere = "Marzo";
+                break;
+            case "4":
+                Long_meseInLettere = "Aprile";
+                break;
+            case "5":
+                Long_meseInLettere = "Maggio";
+                break;
+            case "6":
+                Long_meseInLettere = "Giugno";
+                break;
+            case "7":
+                Long_meseInLettere = "Luglio";
+                break;
+            case "8":
+                Long_meseInLettere = "Agosto";
+                break;
+            case "9":
+                Long_meseInLettere = "Settembre";
+                break;
+            case "10":
+                Long_meseInLettere = "Ottobre";
+                break;
+            case "11":
+                Long_meseInLettere = "Novembre";
+                break;
+            case "12":
+                Long_meseInLettere = "Dicembre";
+                break;
+        }
+        return Long_meseInLettere;
+
+    }
+
 
     public String createXpathGiornoDaSelezionare(String string) {
         String xpath = "//*[@text='sost']";

@@ -29,7 +29,7 @@ public class SetupConfigurazioneBT_pos1 implements AndroidAction {
 
         String pos = "//*[contains(@text,'P162')]";
         String riprova = "//*[contains(@text,'RIPROVA')]";
-        String asscocia = "//android.widget.Button[@text = 'Associa' or @text = 'OK']";
+        String asscocia = "//android.widget.Button[@text = 'Associa' or @text = 'ASSOCIA' or @text = 'OK']";
         String associatoOk = "//android.widget.TextView[@text = 'Associato']";
 
 
