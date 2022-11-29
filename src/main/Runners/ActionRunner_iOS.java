@@ -6,6 +6,8 @@ import io.testproject.java.sdk.v2.Runner;
 
 import io.testproject.java.sdk.v2.drivers.IOSDriver;
 import main.Addon.ios.GrantManageiOS;
+import main.Addon.ios.NPOtpRetrieveIosProva;
+import main.Addon.ios.NP_ControlPdf;
 import main.Addon.ios.NP_GestionePOPUP;
 
 
@@ -28,7 +30,7 @@ public class ActionRunner_iOS {
         driver = runner.getDriver();
         //   try(Runner runner = new Runner(devToken, driverSettings)){
 
-        NP_GestionePOPUP addoniOS = new NP_GestionePOPUP();
+        NPOtpRetrieveIosProva addoniOS = new NPOtpRetrieveIosProva();
 
         IOSDriver driver = runner.getDriver();
 
