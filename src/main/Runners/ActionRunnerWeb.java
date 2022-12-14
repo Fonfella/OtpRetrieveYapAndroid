@@ -4,6 +4,8 @@ import io.testproject.java.classes.DriverSettings;
 import io.testproject.java.enums.DriverType;
 import io.testproject.java.sdk.v2.Runner;
 import io.testproject.java.sdk.v2.drivers.WebDriver;
+import main.Addon.Web.CheckHandleOpen;
+import main.Addon.Web.CheckHandleOpenPDF;
 import main.Addon.Web.ClearAndInsertText;
 import main.Addon.Web.InsertKey6Web;
 
@@ -18,7 +20,7 @@ public class ActionRunnerWeb {
 
         try (Runner runner = new Runner(devToken, driverSettings)) {
 
-            ClearAndInsertText addon = new ClearAndInsertText();
+            CheckHandleOpenPDF addon = new CheckHandleOpenPDF();
 
             WebDriver driver = runner.getDriver(addon);
 
