@@ -14,7 +14,6 @@ import main.Addon.Methods;
 
 @Action(name = "Gestione path location")
 public class SettingPathLocation implements GenericAction {
-    Methods method = new Methods();
 
     @Parameter(direction = ParameterDirection.OUTPUT)
     public String local_Path;

@@ -4,10 +4,7 @@ import io.testproject.java.classes.DriverSettings;
 import io.testproject.java.enums.DriverType;
 import io.testproject.java.sdk.v2.Runner;
 import io.testproject.java.sdk.v2.drivers.WebDriver;
-import main.Addon.Web.CheckHandleOpen;
-import main.Addon.Web.CheckHandleOpenPDF;
-import main.Addon.Web.ClearAndInsertText;
-import main.Addon.Web.InsertKey6Web;
+import main.Addon.Web.*;
 
 
 public class ActionRunnerWeb {
@@ -20,7 +17,7 @@ public class ActionRunnerWeb {
 
         try (Runner runner = new Runner(devToken, driverSettings)) {
 
-            CheckHandleOpenPDF addon = new CheckHandleOpenPDF();
+            CmdWhoami addon = new CmdWhoami();
 
             WebDriver driver = runner.getDriver(addon);
 
